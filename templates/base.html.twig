@@ -10,8 +10,37 @@
     <title>{% block title %}Share - {% endblock %}</title>
   </head>
   <body>
- <navbar>ici sa nav</navbar>
- </br>
+
+
+    <div class="collapse navbar-collapse" id="navbarColor01">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{{path('accueil')}}">Accueil        
+          </a>
+        </li>
+         <li class="nav-item">
+          <a class="nav-link" href="{{path('connexion')}}">connexion        
+          </a>
+        </li>
+         <li class="nav-item">
+          <a class="nav-link" href="{{path('inscription')}}">inscription        
+          </a>
+        </li>
+         <li class="nav-item">
+          <a class="nav-link" href="{{path('paiement')}}">paiement        
+          </a>
+        </li>
+         <li class="nav-item">
+          <a class="nav-link" href="{{path('recherche')}}">recherche      
+          </a>
+        </li>
+         <li class="nav-item">
+          <a class="nav-link" href="{{path('profil')}}">profil        
+          </a>
+        </li>
+       </ul>
+    </div>
+
     {% block body %}
     {% endblock %} 
   
