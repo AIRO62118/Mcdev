@@ -1,7 +1,22 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello!{% endblock %}
+{% block title %}Accueil{% endblock %}
 
 {% block body %}
     Page d'accueil.
+
+
+
+
+<ul>
+    <li>
+    <a href="{{path('contact')}}">Lien pour la page contact dans un footer</a>
+    </li>
+    <li>
+    <a href="{{path('mentions-legales')}}">Lien pour la page mentions légales dans un footer</a>
+    </li>
+    <li>
+    <a href="{{path('a-propos')}}">Lien pour la page à propos dans un footer</a>
+    </li>
+</ul>
 {% endblock %}

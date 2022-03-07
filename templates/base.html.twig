@@ -7,11 +7,18 @@
    {% block stylesheets %}
     <!-- Bootstrap CSS -->
    {% endblock %}
-    <title>{% block title %}Share - {% endblock %}</title>
+    <title>{% block title %}MCDev - {% endblock %}</title>
   </head>
   <body>
- <navbar>ici sa nav</navbar>
- </br>
+    {% block navbar %}
+    {% endblock %}
+
+    {% for message in app.flashes('notice') %}
+    <div class="alert">
+      <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+     {{ message }}
+      </div>  
+    {% endfor %}
     {% block body %}
     {% endblock %} 
   
