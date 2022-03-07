@@ -11,6 +11,18 @@
   </head>
   <body>
     {% block navbar %}
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+				<li>
+					<a href="{{path('app_logout')}}">{{app.user.email}}
+						se déconnecter
+					</a>
+				</li>
+		{% endif %}
+    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MOD')%}
+      <li class="nav-item">
+	      <a href="{{path('liste-contacts')}}">Liste des contacts</a>
+      </li>
+    {% endif %}
     {% endblock %}
 
     {% for message in app.flashes('notice') %}
