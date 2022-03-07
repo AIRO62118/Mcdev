@@ -1,4 +1,18 @@
 {
+    "api-platform/core": {
+        "version": "2.6",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "2.5",
+            "ref": "05b57782a78c21a664a42055dc11cf1954ca36bb"
+        },
+        "files": [
+            "config/packages/api_platform.yaml",
+            "config/routes/api_platform.yaml",
+            "src/Entity/.gitignore"
+        ]
+    },
     "doctrine/annotations": {
         "version": "1.13",
         "recipe": {
@@ -13,6 +27,9 @@
     },
     "doctrine/common": {
         "version": "3.2.2"
+    },
+    "doctrine/data-fixtures": {
+        "version": "1.5.2"
     },
     "doctrine/dbal": {
         "version": "3.3.2"
@@ -32,6 +49,18 @@
             "config/packages/doctrine.yaml",
             "src/Entity/.gitignore",
             "src/Repository/.gitignore"
+        ]
+    },
+    "doctrine/doctrine-fixtures-bundle": {
+        "version": "3.4",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "3.0",
+            "ref": "1f5514cfa15b947298df4d771e694e578d4c204d"
+        },
+        "files": [
+            "src/DataFixtures/AppFixtures.php"
         ]
     },
     "doctrine/doctrine-migrations-bundle": {
@@ -74,14 +103,62 @@
     "egulias/email-validator": {
         "version": "3.1.2"
     },
+    "fakerphp/faker": {
+        "version": "v1.19.0"
+    },
+    "fig/link-util": {
+        "version": "1.2.0"
+    },
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.6"
     },
     "laminas/laminas-code": {
         "version": "4.5.1"
     },
+    "lcobucci/clock": {
+        "version": "2.1.0"
+    },
+    "lcobucci/jwt": {
+        "version": "4.1.5"
+    },
+    "lexik/jwt-authentication-bundle": {
+        "version": "2.14",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "2.5",
+            "ref": "5b2157bcd5778166a5696e42f552ad36529a07a6"
+        },
+        "files": [
+            "config/packages/lexik_jwt_authentication.yaml"
+        ]
+    },
+    "namshi/jose": {
+        "version": "7.2.3"
+    },
+    "nelmio/cors-bundle": {
+        "version": "2.2",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "1.5",
+            "ref": "6bea22e6c564fba3a1391615cada1437d0bde39c"
+        },
+        "files": [
+            "config/packages/nelmio_cors.yaml"
+        ]
+    },
     "nikic/php-parser": {
         "version": "v4.13.2"
+    },
+    "phpdocumentor/reflection-common": {
+        "version": "2.2.0"
+    },
+    "phpdocumentor/reflection-docblock": {
+        "version": "5.3.0"
+    },
+    "phpdocumentor/type-resolver": {
+        "version": "1.6.0"
     },
     "psr/cache": {
         "version": "2.0.0"
@@ -91,6 +168,9 @@
     },
     "psr/event-dispatcher": {
         "version": "1.0.0"
+    },
+    "psr/link": {
+        "version": "1.1.1"
     },
     "psr/log": {
         "version": "2.0.0"
@@ -106,6 +186,9 @@
         "files": [
             "public/.htaccess"
         ]
+    },
+    "symfony/asset": {
+        "version": "v5.3.14"
     },
     "symfony/cache": {
         "version": "v5.3.14"
@@ -151,6 +234,9 @@
     },
     "symfony/event-dispatcher-contracts": {
         "version": "v2.5.0"
+    },
+    "symfony/expression-language": {
+        "version": "v5.3.14"
     },
     "symfony/filesystem": {
         "version": "v5.3.14"
@@ -243,6 +329,9 @@
     "symfony/polyfill-mbstring": {
         "version": "v1.24.0"
     },
+    "symfony/polyfill-php56": {
+        "version": "v1.20.0"
+    },
     "symfony/polyfill-php73": {
         "version": "v1.24.0"
     },
@@ -301,6 +390,9 @@
     "symfony/security-http": {
         "version": "v5.3.14"
     },
+    "symfony/serializer": {
+        "version": "v5.3.14"
+    },
     "symfony/service-contracts": {
         "version": "v2.5.0"
     },
@@ -347,6 +439,9 @@
     "symfony/var-exporter": {
         "version": "v5.3.14"
     },
+    "symfony/web-link": {
+        "version": "v5.3.14"
+    },
     "symfony/web-profiler-bundle": {
         "version": "5.3",
         "recipe": {
@@ -377,5 +472,11 @@
     },
     "twig/twig": {
         "version": "v3.3.8"
+    },
+    "webmozart/assert": {
+        "version": "1.10.0"
+    },
+    "willdurand/negotiation": {
+        "version": "3.1.0"
     }
 }
