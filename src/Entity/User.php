@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -32,6 +34,51 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'boolean')]
     private $isVerified = false;
+
+    #[ORM\OneToOne(mappedBy: 'user', targetEntity: Profil::class, cascade: ['persist', 'remove'])]
+    private $profil;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private $nom;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private $prenom;
+
+    #[ORM\Column(type: 'date')]
+    private $date_de_naissance;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private $adresse_region;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private $adresse_ville;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private $adresse_CP;
+
+    #[ORM\Column(type: 'boolean')]
+    private $est_premium;
+
+    #[ORM\Column(type: 'datetime')]
+    private $date_inscription;
+
+    #[ORM\Column(type: 'string', length: 50)]
+    private $token;
+
+    #[ORM\ManyToMany(targetEntity: Entreprise::class, inversedBy: 'users')]
+    private $est_patron;
+
+    #[ORM\ManyToOne(targetEntity: Entreprise::class, inversedBy: 'users_salarie')]
+    private $est_salarie;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Posseder::class)]
+    private $posseders;
+
+    public function __construct()
+    {
+        $this->est_patron = new ArrayCollection();
+        $this->posseders = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -130,6 +177,197 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    public function getProfil(): ?Profil
+    {
+        return $this->profil;
+    }
+
+    public function setProfil(Profil $profil): self
+    {
+        // set the owning side of the relation if necessary
+        if ($profil->getUser() !== $this) {
+            $profil->setUser($this);
+        }
+
+        $this->profil = $profil;
+
+        return $this;
+    }
+
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(string $nom): self
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function getPrenom(): ?string
+    {
+        return $this->prenom;
+    }
+
+    public function setPrenom(string $prenom): self
+    {
+        $this->prenom = $prenom;
+
+        return $this;
+    }
+
+    public function getDateDeNaissance(): ?\DateTimeInterface
+    {
+        return $this->date_de_naissance;
+    }
+
+    public function setDateDeNaissance(\DateTimeInterface $date_de_naissance): self
+    {
+        $this->date_de_naissance = $date_de_naissance;
+
+        return $this;
+    }
+
+    public function getAdresseRegion(): ?string
+    {
+        return $this->adresse_region;
+    }
+
+    public function setAdresseRegion(string $adresse_region): self
+    {
+        $this->adresse_region = $adresse_region;
+
+        return $this;
+    }
+
+    public function getAdresseVille(): ?string
+    {
+        return $this->adresse_ville;
+    }
+
+    public function setAdresseVille(string $adresse_ville): self
+    {
+        $this->adresse_ville = $adresse_ville;
+
+        return $this;
+    }
+
+    public function getAdresseCP(): ?string
+    {
+        return $this->adresse_CP;
+    }
+
+    public function setAdresseCP(string $adresse_CP): self
+    {
+        $this->adresse_CP = $adresse_CP;
+
+        return $this;
+    }
+
+    public function getEstPremium(): ?bool
+    {
+        return $this->est_premium;
+    }
+
+    public function setEstPremium(bool $est_premium): self
+    {
+        $this->est_premium = $est_premium;
+
+        return $this;
+    }
+
+    public function getDateInscription(): ?\DateTimeInterface
+    {
+        return $this->date_inscription;
+    }
+
+    public function setDateInscription(\DateTimeInterface $date_inscription): self
+    {
+        $this->date_inscription = $date_inscription;
+
+        return $this;
+    }
+
+    public function getToken(): ?string
+    {
+        return $this->token;
+    }
+
+    public function setToken(string $token): self
+    {
+        $this->token = $token;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Entreprise>
+     */
+    public function getEstPatron(): Collection
+    {
+        return $this->est_patron;
+    }
+
+    public function addEstPatron(Entreprise $estPatron): self
+    {
+        if (!$this->est_patron->contains($estPatron)) {
+            $this->est_patron[] = $estPatron;
+        }
+
+        return $this;
+    }
+
+    public function removeEstPatron(Entreprise $estPatron): self
+    {
+        $this->est_patron->removeElement($estPatron);
+
+        return $this;
+    }
+
+    public function getEstSalarie(): ?Entreprise
+    {
+        return $this->est_salarie;
+    }
+
+    public function setEstSalarie(?Entreprise $est_salarie): self
+    {
+        $this->est_salarie = $est_salarie;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Posseder>
+     */
+    public function getPosseders(): Collection
+    {
+        return $this->posseders;
+    }
+
+    public function addPosseder(Posseder $posseder): self
+    {
+        if (!$this->posseders->contains($posseder)) {
+            $this->posseders[] = $posseder;
+            $posseder->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePosseder(Posseder $posseder): self
+    {
+        if ($this->posseders->removeElement($posseder)) {
+            // set the owning side to null (unless already changed)
+            if ($posseder->getUser() === $this) {
+                $posseder->setUser(null);
+            }
+        }
 
         return $this;
     }
