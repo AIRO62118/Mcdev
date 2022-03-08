@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le : mar. 08 mars 2022 à 11:09
+-- Généré le : mar. 08 mars 2022 à 13:55
 -- Version du serveur : 10.3.29-MariaDB-0+deb10u1
 -- Version de PHP : 8.0.15
 
@@ -74,7 +74,8 @@ INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_
 ('DoctrineMigrations\\Version20220308093718', '2022-03-08 10:37:22', 2506),
 ('DoctrineMigrations\\Version20220308094545', '2022-03-08 10:45:49', 1141),
 ('DoctrineMigrations\\Version20220308095633', '2022-03-08 10:57:15', 3349),
-('DoctrineMigrations\\Version20220308100538', '2022-03-08 11:05:43', 1026);
+('DoctrineMigrations\\Version20220308100538', '2022-03-08 11:05:43', 1026),
+('DoctrineMigrations\\Version20220308115219', '2022-03-08 12:52:45', 1092);
 
 -- --------------------------------------------------------
 
@@ -168,27 +169,17 @@ CREATE TABLE `user` (
   `adresse_cp` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `est_premium` tinyint(1) NOT NULL,
   `date_inscription` datetime NOT NULL,
-  `token` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL
+  `token` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `est_patron_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `user`
 --
 
-INSERT INTO `user` (`id`, `email`, `roles`, `password`, `is_verified`, `est_salarie_id`, `nom`, `prenom`, `date_de_naissance`, `adresse_region`, `adresse_ville`, `adresse_cp`, `est_premium`, `date_inscription`, `token`) VALUES
-(1, 'florian.karbowy62118@gmail.com', '[]', '$2y$13$aFk81YTrOYMPck3Nz/d.p.qBedK28mUBrb46WKxXY8bl/zVf09QZ6', 0, NULL, 'Karbowy', 'Florian', '2002-09-13', '', '', '', 0, '0000-00-00 00:00:00', ''),
-(2, 'compte@email.com', '[]', '$2y$13$C/VIjqcZeUU75pwQwpDz6ep.t0rrx2SLuCpHAvVtJjM.003.NXn3q', 0, NULL, 'compte', 'email', '2002-01-12', '', '', '', 0, '0000-00-00 00:00:00', '');
-
--- --------------------------------------------------------
-
---
--- Structure de la table `user_entreprise`
---
-
-CREATE TABLE `user_entreprise` (
-  `user_id` int(11) NOT NULL,
-  `entreprise_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+INSERT INTO `user` (`id`, `email`, `roles`, `password`, `is_verified`, `est_salarie_id`, `nom`, `prenom`, `date_de_naissance`, `adresse_region`, `adresse_ville`, `adresse_cp`, `est_premium`, `date_inscription`, `token`, `est_patron_id`) VALUES
+(1, 'florian.karbowy62118@gmail.com', '[]', '$2y$13$aFk81YTrOYMPck3Nz/d.p.qBedK28mUBrb46WKxXY8bl/zVf09QZ6', 0, NULL, 'Karbowy', 'Florian', '2002-09-13', '', '', '', 0, '0000-00-00 00:00:00', '', NULL),
+(2, 'compte@email.com', '[]', '$2y$13$C/VIjqcZeUU75pwQwpDz6ep.t0rrx2SLuCpHAvVtJjM.003.NXn3q', 0, NULL, 'compte', 'email', '2002-01-12', '', '', '', 0, '0000-00-00 00:00:00', '', NULL);
 
 --
 -- Index pour les tables déchargées
@@ -255,15 +246,8 @@ ALTER TABLE `rechercher`
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `UNIQ_8D93D649E7927C74` (`email`),
+  ADD UNIQUE KEY `UNIQ_8D93D649A22CC7F3` (`est_patron_id`),
   ADD KEY `IDX_8D93D649A922E09C` (`est_salarie_id`);
-
---
--- Index pour la table `user_entreprise`
---
-ALTER TABLE `user_entreprise`
-  ADD PRIMARY KEY (`user_id`,`entreprise_id`),
-  ADD KEY `IDX_AA7E3C8CA76ED395` (`user_id`),
-  ADD KEY `IDX_AA7E3C8CA4AEAFEA` (`entreprise_id`);
 
 --
 -- AUTO_INCREMENT pour les tables déchargées
@@ -357,14 +341,8 @@ ALTER TABLE `rechercher`
 -- Contraintes pour la table `user`
 --
 ALTER TABLE `user`
+  ADD CONSTRAINT `FK_8D93D649A22CC7F3` FOREIGN KEY (`est_patron_id`) REFERENCES `entreprise` (`id`),
   ADD CONSTRAINT `FK_8D93D649A922E09C` FOREIGN KEY (`est_salarie_id`) REFERENCES `entreprise` (`id`);
-
---
--- Contraintes pour la table `user_entreprise`
---
-ALTER TABLE `user_entreprise`
-  ADD CONSTRAINT `FK_AA7E3C8CA4AEAFEA` FOREIGN KEY (`entreprise_id`) REFERENCES `entreprise` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `FK_AA7E3C8CA76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
