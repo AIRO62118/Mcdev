@@ -1,8 +1,17 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Log in!{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="css/accueil.css"> 
+{% endblock %} 
 
 {% block body %}
+
+<img src="asset/mcDev.jpeg" alt="Logo">
+<div class="accueil_droite">
+<div class="titre_accueil">
+    <h1>McDev</h1>
+</div>
 <form method="post">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -15,11 +24,11 @@
     {% endif %}
 
     <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail">Email</label>
+    <label for="inputEmail">Email :</label>
     <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-    <label for="inputPassword">Password</label>
+    <label for="inputPassword">Password :</label>
     <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-
+    <a href="#">Forgot password ?</a> 
     <input type="hidden" name="_csrf_token"
            value="{{ csrf_token('authenticate') }}"
     >
@@ -27,7 +36,7 @@
     {#
         Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
         See https://symfony.com/doc/current/security/remember_me.html
-
+<footer><a href="https://google.com">Google</a></footer>
         <div class="checkbox mb-3">
             <label>
                 <input type="checkbox" name="_remember_me"> Remember me
@@ -39,4 +48,9 @@
         Sign in
     </button>
 </form>
+</div>
+<footer><a href="https://google.com">Google</a><a href="https://google.com">Google</a><a href="https://google.com">Google</a></footer>
+
 {% endblock %}
+
+

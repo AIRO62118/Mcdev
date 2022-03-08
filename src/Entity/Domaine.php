@@ -5,6 +5,9 @@ namespace App\Entity;
 use App\Repository\DomaineRepository;
 use Doctrine\ORM\Mapping as ORM;
 
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 #[ORM\Entity(repositoryClass: DomaineRepository::class)]
 class Domaine
 {

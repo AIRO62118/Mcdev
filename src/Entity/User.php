@@ -65,8 +65,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 50)]
     private $token;
 
-    #[ORM\ManyToMany(targetEntity: Entreprise::class, inversedBy: 'users')]
-    private $est_patron;
+    
 
     #[ORM\ManyToOne(targetEntity: Entreprise::class, inversedBy: 'users_salarie')]
     private $est_salarie;
@@ -74,9 +73,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Posseder::class)]
     private $posseders;
 
+    #[ORM\OneToOne(targetEntity: Entreprise::class, cascade: ['persist', 'remove'])]
+    private $est_patron;
+
     public function __construct()
     {
-        $this->est_patron = new ArrayCollection();
         $this->posseders = new ArrayCollection();
     }
 
@@ -306,29 +307,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection<int, Entreprise>
-     */
-    public function getEstPatron(): Collection
-    {
-        return $this->est_patron;
-    }
-
-    public function addEstPatron(Entreprise $estPatron): self
-    {
-        if (!$this->est_patron->contains($estPatron)) {
-            $this->est_patron[] = $estPatron;
-        }
-
-        return $this;
-    }
-
-    public function removeEstPatron(Entreprise $estPatron): self
-    {
-        $this->est_patron->removeElement($estPatron);
-
-        return $this;
-    }
+    
 
     public function getEstSalarie(): ?Entreprise
     {
@@ -368,6 +347,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $posseder->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getEstPatron(): ?Entreprise
+    {
+        return $this->est_patron;
+    }
+
+    public function setEstPatron(?Entreprise $est_patron): self
+    {
+        $this->est_patron = $est_patron;
 
         return $this;
     }

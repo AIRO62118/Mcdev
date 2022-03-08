@@ -7,7 +7,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 #[ORM\Entity(repositoryClass: EntrepriseRepository::class)]
+
+#[ApiResource(normalizationContext:['groups' => ['read']], itemOperations: ["get", "patch"=>["security"=>"is_granted('ROLE_ADMIN') or object == entreprise"]])]
 class Entreprise
 {
     #[ORM\Id]
@@ -39,9 +44,6 @@ class Entreprise
     #[ORM\Column(type: 'datetime')]
     private $date_création_page;
 
-    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'est_patron')]
-    private $users_patron;
-
     #[ORM\OneToMany(mappedBy: 'est_salarie', targetEntity: User::class)]
     private $users_salarie;
 
@@ -50,7 +52,6 @@ class Entreprise
 
     public function __construct()
     {
-        $this->users_patron = new ArrayCollection();
         $this->users_salarie = new ArrayCollection();
         $this->recherchers = new ArrayCollection();
     }
@@ -156,32 +157,6 @@ class Entreprise
         return $this;
     }
 
-    /**
-     * @return Collection<int, User>
-     */
-    public function getUsersPatron(): Collection
-    {
-        return $this->users_patron;
-    }
-
-    public function addUserPatron(User $user): self
-    {
-        if (!$this->users_patron->contains($user)) {
-            $this->users_patron[] = $user;
-            $user->addEstPatron($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUserPatron(User $user): self
-    {
-        if ($this->users_patron->removeElement($user)) {
-            $user->removeEstPatron($this);
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, User>
