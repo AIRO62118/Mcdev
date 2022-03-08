@@ -1,8 +1,17 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Log in!{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="css/accueil.css"> 
+{% endblock %} 
 
 {% block body %}
+<div class="accueil_gauche">
+</div>
+<div class="accueil_droite">
+<div class="titre_accueil">
+    <h1>McDev</h1>
+</div>
 <form method="post">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -39,4 +48,5 @@
         Sign in
     </button>
 </form>
+</div>
 {% endblock %}
