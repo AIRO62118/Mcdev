@@ -56,7 +56,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 255)]
     private $adresse_CP;
 
-    #[ORM\Column(type: 'boolean')]
+    #[ORM\Column(type: 'boolean',nullable:true)]
     private $est_premium;
 
     #[ORM\Column(type: 'datetime')]

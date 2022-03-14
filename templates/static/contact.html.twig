@@ -3,6 +3,32 @@
 {% block title %}Contactez-nous !{% endblock %}
 
 {% block body %}
-    Page de contact.
-        {{form(form)}}
+<h1 class="text-primary text-center">Bienvenue sur Contact</h1>
+
+<div class="container">
+{{form_start(form)}}
+
+{{form_label(form.nom, 'Nom', {'label_attr':{'class':'fw-bold'}})}}
+{{form_widget(form.nom, {'attr':{'class':'form-control', 'placeholder':'votre nom'}})}}
+</br>
+
+
+{{form_label(form.sujet, 'Sujet', {'label_attr':{'class':'fw-bold'}})}}
+{{form_widget(form.sujet, {'attr':{'class':'form-control', 'placeholder':'Votre sujet'}})}}
+</br>
+
+
+{{form_label(form.email, 'Email', {'label_attr':{'class':'fw-bold'}})}}
+{{form_widget(form.email, {'attr':{'class':'form-control', 'placeholder':'Votre email'}})}}
+</br>
+
+
+{{form_label(form.message, 'Message', {'label_attr':{'class':'fw-bold'}})}}
+{{form_widget(form.message, {'attr':{'class':'form-control', 'placeholder':'Votre message'}})}}
+</br>
+
+{{form_widget(form.envoyer, {'label':"Soumettre le formulaire", 'attr':{'class':'btn bg-primary'}})}}
+
+{{form_end(form , {render_rest: true})}}
+</div>
 {% endblock %}

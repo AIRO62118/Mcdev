@@ -11,10 +11,10 @@
 
     {{ form_start(registrationForm) }}
     
-    Adresse:<input list="datalist" placeholder="Adresse"/>
+    Adresse:<input name="region" list="datalist" placeholder="Adresse"/>
 	<datalist id="datalist"></datalist>
 
-    Ville et code Postal:<input list="datalist2" placeholder="Ville"/>
+    Ville et code Postal:<input name="villecp" list="datalist2" placeholder="Ville"/>
 	<datalist id="datalist2"></datalist>
 
     {{ form_end(registrationForm) }}
