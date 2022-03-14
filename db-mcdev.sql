@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le : lun. 14 mars 2022 à 14:04
+-- Généré le : lun. 14 mars 2022 à 15:27
 -- Version du serveur : 10.3.29-MariaDB-0+deb10u1
 -- Version de PHP : 8.0.15
 
@@ -32,6 +32,22 @@ CREATE TABLE `competence` (
   `libelle` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `parent_id_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `competence`
+--
+
+INSERT INTO `competence` (`id`, `libelle`, `parent_id_id`) VALUES
+(1, 'Merle', NULL),
+(2, 'Laroche', NULL),
+(3, 'Renaud', NULL),
+(4, 'Arnaud', 2),
+(5, 'Dupuis', NULL),
+(6, 'Coste', NULL),
+(7, 'Pruvost', NULL),
+(8, 'Bonnin', NULL),
+(9, 'Thibault', NULL),
+(10, 'Le Goff', NULL);
 
 -- --------------------------------------------------------
 
@@ -113,16 +129,16 @@ CREATE TABLE `entreprise` (
 --
 
 INSERT INTO `entreprise` (`id`, `nom_entreprise`, `logo_entreprise`, `banniere_entreprise`, `description_entreprise`, `adresse_ville`, `adresse_region`, `adresse_cp`, `est_premium`, `date_création_page`) VALUES
-(11, 'Seguin', NULL, NULL, NULL, 'Duvalnec', 'Francois', '94033', 1, '1987-04-03 21:48:27'),
-(12, 'Weber', NULL, NULL, NULL, 'Dos Santos', 'Traore', '65021', 1, '1980-08-15 05:11:46'),
-(13, 'Jean', NULL, NULL, NULL, 'Brunel', 'Lemaire', '68043', 1, '1993-04-05 04:29:44'),
-(14, 'Marin', NULL, NULL, NULL, 'Legrandnec', 'LedouxVille', '63009', 0, '1972-01-17 03:06:00'),
-(15, 'Begue', NULL, NULL, NULL, 'Lesagedan', 'Tessier', '66091', 1, '2015-05-14 13:56:14'),
-(16, 'Benoit', NULL, NULL, NULL, 'Francois', 'Vidal', '37207', 0, '1992-08-04 15:38:19'),
-(17, 'Guillet', NULL, NULL, NULL, 'Marty', 'Garcia-les-Bains', '81031', 0, '1970-05-25 17:26:39'),
-(18, 'Simon', NULL, NULL, NULL, 'Bourgeois', 'Navarro-les-Bains', '90131', 0, '1992-05-16 16:08:12'),
-(19, 'Valentin', NULL, NULL, NULL, 'Seguin-la-Forêt', 'Leclercq-sur-Huet', '91888', 1, '1975-12-18 11:23:04'),
-(20, 'Legendre', NULL, NULL, NULL, 'Giraud-sur-Mer', 'Pelletier-la-Forêt', '62085', 1, '1973-03-05 21:21:04');
+(21, 'Gros', NULL, NULL, NULL, 'Lebreton', 'Maillet-sur-Chartier', '67398', 1, '2005-01-27 18:54:13'),
+(22, 'Vasseur', NULL, NULL, NULL, 'Fournier', 'Le Roux-les-Bains', '26080', 1, '2019-12-28 04:05:20'),
+(23, 'Cohen', NULL, NULL, NULL, 'Guyot', 'Leroux', '57378', 0, '1996-11-20 09:51:01'),
+(24, 'Collin', NULL, NULL, NULL, 'Lebreton', 'Marechal', '82083', 0, '2012-11-29 15:04:23'),
+(25, 'Bouvet', NULL, NULL, NULL, 'Vaillantboeuf', 'Charles', '29076', 1, '1991-02-02 22:17:04'),
+(26, 'Verdier', NULL, NULL, NULL, 'Cousin', 'Perrot', '78096', 0, '1994-07-06 23:55:40'),
+(27, 'Gaudin', NULL, NULL, NULL, 'Klein', 'Moreno-les-Bains', '53126', 1, '2011-04-06 17:52:27'),
+(28, 'Roussel', NULL, NULL, NULL, 'Lebrun-la-Forêt', 'Auger', '58713', 0, '1974-01-01 09:37:46'),
+(29, 'Chevalier', NULL, NULL, NULL, 'Fontaine', 'Grondin-les-Bains', '90043', 0, '1987-08-17 05:33:24'),
+(30, 'Lagarde', NULL, NULL, NULL, 'Lopeznec', 'Briandnec', '75098', 0, '2021-12-16 14:28:49');
 
 -- --------------------------------------------------------
 
@@ -194,16 +210,16 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `email`, `roles`, `password`, `is_verified`, `est_salarie_id`, `nom`, `prenom`, `date_de_naissance`, `adresse_region`, `adresse_ville`, `adresse_cp`, `est_premium`, `date_inscription`, `est_patron_id`) VALUES
-(13, 'michèle.moreno@wanadoo.fr', '[\"ROlE_USER\"]', '$2y$13$4fPpf9U60Il5vLmWoNsuT.7avcTP2rNe.k8PHq3Nwl.3XWGf82J2m', 0, 11, 'Moreno', 'Michèle', '2006-12-25', 'Levy-sur-Bigot', 'Mendes', '25816', 0, '2022-01-18 07:15:37', NULL),
-(14, 'tristan.nicolas@tele2.fr', '[\"ROlE_USER\"]', '$2y$13$LBHIUS7SdaoGVa8iOfq2auYRkL04SZzjQBFRpjdebJDA3vRjtTR1i', 0, NULL, 'Nicolas', 'Tristan', '2017-05-14', 'Denis', 'Paris-sur-Mer', '68020', 0, '2022-03-02 13:37:06', NULL),
-(15, 'benoît.antoine@laposte.net', '[\"ROlE_USER\"]', '$2y$13$IP3h/KG.rMUG4cX6JyobbuEQzBQP/FNJ5eAlFYYeKzpmt/KK/jmXu', 0, NULL, 'Antoine', 'Benoît', '1997-12-10', 'FischerVille', 'Bouvier', '31064', 0, '2022-02-11 00:57:35', NULL),
-(16, 'christophe.robert@laposte.net', '[\"ROlE_USER\"]', '$2y$13$cODuID2KRONJiSvxhPVnQuO9YZu7ynrNLictDuN.chss9w4vcacMG', 0, NULL, 'Robert', 'Christophe', '2016-07-18', 'Lecoq-les-Bains', 'Rousset', '49433', 0, '2022-02-14 22:14:25', NULL),
-(17, 'dorothée.dupuis@laposte.net', '[\"ROlE_USER\"]', '$2y$13$pRUXee0eqigCf0JQqdLPFePkDgG8Qx3ZyMVKMEL05zn71tFJZFDjC', 0, NULL, 'Dupuis', 'Dorothée', '2006-10-11', 'Rodrigues', 'Brunet', '95060', 0, '2022-01-06 00:06:24', NULL),
-(18, 'joseph.bousquet@yahoo.fr', '[\"ROlE_USER\"]', '$2y$13$7np2NkvglpxOeNsaghyZ4O0Zdxn12ZavFR7qdDCpORzrEpxpf51bu', 0, NULL, 'Bousquet', 'Joseph', '2020-09-10', 'CoulonVille', 'Noel', '77069', 0, '2022-02-26 22:59:09', NULL),
-(19, 'Éléonore.gomez@yahoo.fr', '[\"ROlE_USER\"]', '$2y$13$HKcgzwk3iqBHSyxNmUJt.uhchq8TpeZS.TxEPMFLlGSqjTMiI7lIu', 0, NULL, 'Gomez', 'Éléonore', '1982-10-11', 'Chevallier', 'Lebrun', '10763', 0, '2022-02-24 22:05:24', NULL),
-(20, 'amélie.evrard@noos.fr', '[\"ROlE_USER\"]', '$2y$13$pbADLMkBOxFgwK9fWj.98uUH2G0BpzfGb2G8sdbiELpGojwjKxune', 0, NULL, 'Evrard', 'Amélie', '1997-09-09', 'Morenodan', 'Couturier', '77923', 0, '2022-01-23 20:54:24', NULL),
-(21, 'jacques.pottier@laposte.net', '[\"ROlE_USER\"]', '$2y$13$F0DxRqnUxfBlkipV743nnu2mUe8v5340b7DgKGWjkxTRgbckz3AaG', 0, NULL, 'Pottier', 'Jacques', '2019-07-30', 'Rousset-sur-Mer', 'Georges', '63006', 0, '2022-02-09 01:19:30', NULL),
-(22, 'aimée.bousquet@sfr.fr', '[\"ROlE_USER\"]', '$2y$13$UVcuMFMDkdWosFC7qC/llugQ68mmdeHYcQBbXPo.B8dERUftzJ8pW', 0, 11, 'Bousquet', 'Aimée', '2008-08-27', 'Barbeboeuf', 'DuhamelBourg', '50227', 0, '2022-02-20 07:51:18', NULL);
+(23, 'guillaume.le roux@yahoo.fr', '[\"ROlE_USER\"]', '$2y$13$pFEl84/v8CpBAzp4AdPiteGUEf.FRfJ0K3k3LRNKEUM0uGHgHhsp6', 0, NULL, 'Le Roux', 'Guillaume', '2007-03-22', 'Couturiernec', 'Vaillantdan', '68075', 1, '2022-02-01 07:03:07', NULL),
+(24, 'thomas.charrier@live.com', '[\"ROlE_USER\"]', '$2y$13$RMGgWeNoATiJlw4a.o.3CeF2NchxBb/Rc.Fd4uxqxYLYpjj4SjWDq', 0, NULL, 'Charrier', 'Thomas', '2018-04-21', 'Morvan-sur-Mer', 'Gomezboeuf', '89418', 1, '2022-01-22 01:30:53', NULL),
+(25, 'guillaume.ledoux@wanadoo.fr', '[\"ROlE_USER\"]', '$2y$13$xwi5TH8B8v7fnrPxnrz1Neqx6v7aKke57uJGYetGg362KfzZM7XI.', 0, NULL, 'Ledoux', 'Guillaume', '2016-05-06', 'Leleunec', 'Roy-sur-Thibault', '42504', 0, '2022-02-08 16:16:15', NULL),
+(26, 'patrick.seguin@club-internet.fr', '[\"ROlE_USER\"]', '$2y$13$gGkcLeGiHNPeNRpKaX2c7O9lfKVLHP8nNHR1Eic3fuvVMiHIPsXL2', 0, NULL, 'Seguin', 'Patrick', '2014-07-29', 'Didiernec', 'De Sousa', '61996', 0, '2022-03-06 19:03:55', NULL),
+(27, 'sébastien.lefebvre@dbmail.com', '[\"ROlE_USER\"]', '$2y$13$5GtGp6dFOG/CQkM9z8TTBO6PzFHGswU1BvZOQNoi4QgtKKXybqrvO', 0, NULL, 'Lefebvre', 'Sébastien', '2007-04-20', 'Couturier', 'PeltierBourg', '83852', 0, '2022-02-04 13:04:15', NULL),
+(28, 'danielle.navarro@free.fr', '[\"ROlE_USER\"]', '$2y$13$9S2MSqq/qg4.8lG8t4p4/Omzl6mtCOqZWmDRtS.vzcO.eACLUs/i.', 0, NULL, 'Navarro', 'Danielle', '1973-07-12', 'Hoarau-sur-Mer', 'Brunet-sur-Bouchet', '18133', 1, '2022-03-05 13:35:59', NULL),
+(29, 'auguste.thierry@orange.fr', '[\"ROlE_USER\"]', '$2y$13$eeRseb6Ig5yXZAmcpOFGU.wapiFT/dGnHnD3qUTFFviclCji7FLh6', 0, NULL, 'Thierry', 'Auguste', '1970-10-20', 'Blondel', 'CamusBourg', '01436', 1, '2022-01-23 10:55:29', NULL),
+(30, 'thibault.legrand@laposte.net', '[\"ROlE_USER\"]', '$2y$13$w.3hek/N8n1Itb4E0qL0Yun847sUt1zX8WvlQ6sAQsu2Eprk0.u/W', 0, NULL, 'Legrand', 'Thibault', '2008-02-29', 'Bourdon-les-Bains', 'Joly-sur-Leveque', '98487', 0, '2022-01-20 18:04:02', NULL),
+(31, 'nathalie.michaud@laposte.net', '[\"ROlE_USER\"]', '$2y$13$tV4JgBS7o7Nvs/QgdNUlPuoflCFmcNDjwE3Uwq9MTd1azmbkPM83i', 0, NULL, 'Michaud', 'Nathalie', '1981-05-14', 'Coulon', 'Leroux', '41051', 0, '2022-02-27 09:47:59', NULL),
+(32, 'antoine.mendes@club-internet.fr', '[\"ROlE_USER\"]', '$2y$13$V47mWOvaYcn.1syLWDW7COxXBJ98.s.q1/cLmvQMrtTxiD0mCshj2', 0, NULL, 'Mendes', 'Antoine', '2001-01-07', 'Pichon', 'Hubert', '12077', 1, '2022-02-24 22:53:35', NULL);
 
 --
 -- Index pour les tables déchargées
@@ -281,7 +297,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT pour la table `competence`
 --
 ALTER TABLE `competence`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT pour la table `contact`
@@ -299,7 +315,7 @@ ALTER TABLE `domaine`
 -- AUTO_INCREMENT pour la table `entreprise`
 --
 ALTER TABLE `entreprise`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT pour la table `posseder`
@@ -323,7 +339,7 @@ ALTER TABLE `rechercher`
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- Contraintes pour les tables déchargées
