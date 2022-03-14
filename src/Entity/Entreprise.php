@@ -50,6 +50,9 @@ class Entreprise
     #[ORM\OneToMany(mappedBy: 'entreprise', targetEntity: Rechercher::class)]
     private $recherchers;
 
+    #[ORM\Column(type: 'string', length: 255)]
+    private $nom_entreprise;
+
     public function __construct()
     {
         $this->users_salarie = new ArrayCollection();
@@ -214,6 +217,18 @@ class Entreprise
                 $rechercher->setEntreprise(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getNomEntreprise(): ?string
+    {
+        return $this->nom_entreprise;
+    }
+
+    public function setNomEntreprise(string $nom_entreprise): self
+    {
+        $this->nom_entreprise = $nom_entreprise;
 
         return $this;
     }

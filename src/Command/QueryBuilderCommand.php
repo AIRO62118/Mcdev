@@ -6,6 +6,8 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Command\LockableTrait;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\User;
+use Symfony\Component\Console\Helper\Table;
 
 class QueryBuilderCommand extends Command{    
     use LockableTrait;
@@ -39,15 +41,34 @@ class QueryBuilderCommand extends Command{
         '===================',
         '',
         ]);   
-        $output->writeln('Numéro de la requête: '.$input->getArgument('numero'));  
-        $this->release();   
-         
-        $output->writeln([        
-        'Query Builder end',
-        '===================',        
-        '',      
-        ]);   
-
-          return Command::SUCCESS;   
+        $output->writeln('Numéro de la requête: '.$input->getArgument('numero'));        $this->release();   
+        $result = null;
+        switch($input->getArgument('numero')){
+            case 1 : $output->writeln("Liste des Users triés par ordre alphabétique sur le nom");
+                $result = $this->entityManager->getRepository(User::class)->Users(11);
+                break;
+            default: $output->writeln("Valeur non référencée");
+                break;
+            }
+        if($result){ 
+        if (count($result)>0){
+        $table = new Table($output);
+        $table->setHeaders($result[0]->getHeader()); 
+        $rows = array();
+        foreach ($result as $r){
+        $rows[] = $r->getRow();
         }
-}
+        $table->setRows($rows);
+        $table->render();
+            }
+        }
+        $this->release();
+
+        $output->writeln([
+        'Query Builder end',
+        '===================',
+        '',
+        ]);
+        return Command::SUCCESS;
+        }
+    }

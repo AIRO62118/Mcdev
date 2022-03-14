@@ -90,4 +90,14 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         ;
     }
     */
+    public function Users($entreprise)
+    {
+        return $this->createQueryBuilder('u')
+        ->andWhere('u.est_salarie = :entreprise')
+        ->setParameter('entreprise', $entreprise)
+        ->orderBy('u.nom', 'ASC')
+        ->getQuery()
+        ->getResult()
+        ;
+    }
 }
