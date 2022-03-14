@@ -20,6 +20,9 @@ class Entreprise
     #[ORM\Column(type: 'integer')]
     private $id;
 
+    #[ORM\Column(type: 'string', length: 255)]
+    private $nom_entreprise;
+
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $logo_entreprise;
 
@@ -49,9 +52,6 @@ class Entreprise
 
     #[ORM\OneToMany(mappedBy: 'entreprise', targetEntity: Rechercher::class)]
     private $recherchers;
-
-    #[ORM\Column(type: 'string', length: 255)]
-    private $nom_entreprise;
 
     public function __construct()
     {
