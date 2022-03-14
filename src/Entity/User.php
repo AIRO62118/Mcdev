@@ -62,8 +62,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'datetime')]
     private $date_inscription;
 
-    #[ORM\Column(type: 'string', length: 50)]
-    private $token;
 
     
 
@@ -294,19 +292,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
-    public function getToken(): ?string
-    {
-        return $this->token;
-    }
-
-    public function setToken(string $token): self
-    {
-        $this->token = $token;
-
-        return $this;
-    }
-
     
 
     public function getEstSalarie(): ?Entreprise
@@ -362,4 +347,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function getRow(){    
+        if($this->est_salarie != null){
+            $salarie = $this->est_salarie->getNomEntreprise();
+        }else{
+            $salarie = "";
+        }
+        if($this->est_patron != null){
+            $patron = $this->est_patron->getNomEntreprise();
+        }else{
+            $patron = "";
+        }
+
+
+        return array($this->id, $this->email, $this->password, $salarie, $this->nom, $this->prenom, $this->adresse_region, $this->adresse_ville, $this->adresse_CP, $this->est_premium, $patron);
+    }
+    public function getHeader(){ 
+        return array("id", "email", "password", "est_salarie", "nom", "prenom", "adresse_region", "adresse_ville", "adresse_CP", "est_premium", "est_patron");
+    }
+
 }

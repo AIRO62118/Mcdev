@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le : mar. 08 mars 2022 à 13:55
+-- Généré le : lun. 14 mars 2022 à 14:04
 -- Version du serveur : 10.3.29-MariaDB-0+deb10u1
 -- Version de PHP : 8.0.15
 
@@ -97,6 +97,7 @@ CREATE TABLE `domaine` (
 
 CREATE TABLE `entreprise` (
   `id` int(11) NOT NULL,
+  `nom_entreprise` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `logo_entreprise` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `banniere_entreprise` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `description_entreprise` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -106,6 +107,22 @@ CREATE TABLE `entreprise` (
   `est_premium` tinyint(1) NOT NULL,
   `date_création_page` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `entreprise`
+--
+
+INSERT INTO `entreprise` (`id`, `nom_entreprise`, `logo_entreprise`, `banniere_entreprise`, `description_entreprise`, `adresse_ville`, `adresse_region`, `adresse_cp`, `est_premium`, `date_création_page`) VALUES
+(11, 'Seguin', NULL, NULL, NULL, 'Duvalnec', 'Francois', '94033', 1, '1987-04-03 21:48:27'),
+(12, 'Weber', NULL, NULL, NULL, 'Dos Santos', 'Traore', '65021', 1, '1980-08-15 05:11:46'),
+(13, 'Jean', NULL, NULL, NULL, 'Brunel', 'Lemaire', '68043', 1, '1993-04-05 04:29:44'),
+(14, 'Marin', NULL, NULL, NULL, 'Legrandnec', 'LedouxVille', '63009', 0, '1972-01-17 03:06:00'),
+(15, 'Begue', NULL, NULL, NULL, 'Lesagedan', 'Tessier', '66091', 1, '2015-05-14 13:56:14'),
+(16, 'Benoit', NULL, NULL, NULL, 'Francois', 'Vidal', '37207', 0, '1992-08-04 15:38:19'),
+(17, 'Guillet', NULL, NULL, NULL, 'Marty', 'Garcia-les-Bains', '81031', 0, '1970-05-25 17:26:39'),
+(18, 'Simon', NULL, NULL, NULL, 'Bourgeois', 'Navarro-les-Bains', '90131', 0, '1992-05-16 16:08:12'),
+(19, 'Valentin', NULL, NULL, NULL, 'Seguin-la-Forêt', 'Leclercq-sur-Huet', '91888', 1, '1975-12-18 11:23:04'),
+(20, 'Legendre', NULL, NULL, NULL, 'Giraud-sur-Mer', 'Pelletier-la-Forêt', '62085', 1, '1973-03-05 21:21:04');
 
 -- --------------------------------------------------------
 
@@ -169,7 +186,6 @@ CREATE TABLE `user` (
   `adresse_cp` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `est_premium` tinyint(1) NOT NULL,
   `date_inscription` datetime NOT NULL,
-  `token` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `est_patron_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -177,9 +193,17 @@ CREATE TABLE `user` (
 -- Déchargement des données de la table `user`
 --
 
-INSERT INTO `user` (`id`, `email`, `roles`, `password`, `is_verified`, `est_salarie_id`, `nom`, `prenom`, `date_de_naissance`, `adresse_region`, `adresse_ville`, `adresse_cp`, `est_premium`, `date_inscription`, `token`, `est_patron_id`) VALUES
-(1, 'florian.karbowy62118@gmail.com', '[]', '$2y$13$aFk81YTrOYMPck3Nz/d.p.qBedK28mUBrb46WKxXY8bl/zVf09QZ6', 0, NULL, 'Karbowy', 'Florian', '2002-09-13', '', '', '', 0, '0000-00-00 00:00:00', '', NULL),
-(2, 'compte@email.com', '[]', '$2y$13$C/VIjqcZeUU75pwQwpDz6ep.t0rrx2SLuCpHAvVtJjM.003.NXn3q', 0, NULL, 'compte', 'email', '2002-01-12', '', '', '', 0, '0000-00-00 00:00:00', '', NULL);
+INSERT INTO `user` (`id`, `email`, `roles`, `password`, `is_verified`, `est_salarie_id`, `nom`, `prenom`, `date_de_naissance`, `adresse_region`, `adresse_ville`, `adresse_cp`, `est_premium`, `date_inscription`, `est_patron_id`) VALUES
+(13, 'michèle.moreno@wanadoo.fr', '[\"ROlE_USER\"]', '$2y$13$4fPpf9U60Il5vLmWoNsuT.7avcTP2rNe.k8PHq3Nwl.3XWGf82J2m', 0, 11, 'Moreno', 'Michèle', '2006-12-25', 'Levy-sur-Bigot', 'Mendes', '25816', 0, '2022-01-18 07:15:37', NULL),
+(14, 'tristan.nicolas@tele2.fr', '[\"ROlE_USER\"]', '$2y$13$LBHIUS7SdaoGVa8iOfq2auYRkL04SZzjQBFRpjdebJDA3vRjtTR1i', 0, NULL, 'Nicolas', 'Tristan', '2017-05-14', 'Denis', 'Paris-sur-Mer', '68020', 0, '2022-03-02 13:37:06', NULL),
+(15, 'benoît.antoine@laposte.net', '[\"ROlE_USER\"]', '$2y$13$IP3h/KG.rMUG4cX6JyobbuEQzBQP/FNJ5eAlFYYeKzpmt/KK/jmXu', 0, NULL, 'Antoine', 'Benoît', '1997-12-10', 'FischerVille', 'Bouvier', '31064', 0, '2022-02-11 00:57:35', NULL),
+(16, 'christophe.robert@laposte.net', '[\"ROlE_USER\"]', '$2y$13$cODuID2KRONJiSvxhPVnQuO9YZu7ynrNLictDuN.chss9w4vcacMG', 0, NULL, 'Robert', 'Christophe', '2016-07-18', 'Lecoq-les-Bains', 'Rousset', '49433', 0, '2022-02-14 22:14:25', NULL),
+(17, 'dorothée.dupuis@laposte.net', '[\"ROlE_USER\"]', '$2y$13$pRUXee0eqigCf0JQqdLPFePkDgG8Qx3ZyMVKMEL05zn71tFJZFDjC', 0, NULL, 'Dupuis', 'Dorothée', '2006-10-11', 'Rodrigues', 'Brunet', '95060', 0, '2022-01-06 00:06:24', NULL),
+(18, 'joseph.bousquet@yahoo.fr', '[\"ROlE_USER\"]', '$2y$13$7np2NkvglpxOeNsaghyZ4O0Zdxn12ZavFR7qdDCpORzrEpxpf51bu', 0, NULL, 'Bousquet', 'Joseph', '2020-09-10', 'CoulonVille', 'Noel', '77069', 0, '2022-02-26 22:59:09', NULL),
+(19, 'Éléonore.gomez@yahoo.fr', '[\"ROlE_USER\"]', '$2y$13$HKcgzwk3iqBHSyxNmUJt.uhchq8TpeZS.TxEPMFLlGSqjTMiI7lIu', 0, NULL, 'Gomez', 'Éléonore', '1982-10-11', 'Chevallier', 'Lebrun', '10763', 0, '2022-02-24 22:05:24', NULL),
+(20, 'amélie.evrard@noos.fr', '[\"ROlE_USER\"]', '$2y$13$pbADLMkBOxFgwK9fWj.98uUH2G0BpzfGb2G8sdbiELpGojwjKxune', 0, NULL, 'Evrard', 'Amélie', '1997-09-09', 'Morenodan', 'Couturier', '77923', 0, '2022-01-23 20:54:24', NULL),
+(21, 'jacques.pottier@laposte.net', '[\"ROlE_USER\"]', '$2y$13$F0DxRqnUxfBlkipV743nnu2mUe8v5340b7DgKGWjkxTRgbckz3AaG', 0, NULL, 'Pottier', 'Jacques', '2019-07-30', 'Rousset-sur-Mer', 'Georges', '63006', 0, '2022-02-09 01:19:30', NULL),
+(22, 'aimée.bousquet@sfr.fr', '[\"ROlE_USER\"]', '$2y$13$UVcuMFMDkdWosFC7qC/llugQ68mmdeHYcQBbXPo.B8dERUftzJ8pW', 0, 11, 'Bousquet', 'Aimée', '2008-08-27', 'Barbeboeuf', 'DuhamelBourg', '50227', 0, '2022-02-20 07:51:18', NULL);
 
 --
 -- Index pour les tables déchargées
@@ -275,7 +299,7 @@ ALTER TABLE `domaine`
 -- AUTO_INCREMENT pour la table `entreprise`
 --
 ALTER TABLE `entreprise`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT pour la table `posseder`
@@ -299,7 +323,7 @@ ALTER TABLE `rechercher`
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- Contraintes pour les tables déchargées
