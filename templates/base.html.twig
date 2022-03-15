@@ -1,47 +1,41 @@
 <!doctype html>
 <html lang="fr">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="css/base.css"> 
-   {% block stylesheets %}
-   {% endblock %}
-    <title>{% block title %}MCDev - {% endblock %}</title>
-  </head>
-  <body>
-    {% block navbar %}
-    <nav>
-    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1"> {% block stylesheets %}{% endblock %}
+		<title>
+			{% block title %}MCDev -
+			{% endblock %}
+		</title>
+	</head>
+	<body>
+		{% block navbar %}
+			{% if is_granted('IS_AUTHENTICATED_FULLY') %}
 				<li>
 					<a href="{{path('app_logout')}}">{{app.user.email}}
 						se déconnecter
 					</a>
 				</li>
-		{% endif %}
-    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MOD')%}
-      <li class="nav-item">
-	      <a href="{{path('liste-contacts')}}">Liste des contacts</a>
-      </li>
-    {% endif %}
-    </nav>
-    {% endblock %}
+			{% endif %}
+			{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MOD')%}
+				<li class="nav-item">
+					<a href="{{path('liste-contacts')}}">Liste des contacts</a>
+				</li>
+			{% endif %}
+		{% endblock %}
 
-    {% for message in app.flashes('notice') %}
-    <div class="alert">
-      <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-     {{ message }}
-      </div>  
-    {% endfor %}
-{% block body %}
-{% endblock %} 
-  
-    {% block javascripts %}
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-    <script type="text/javascript" src="js/script.js"></script>
-    <script type="text/javascript" src="js/script1.js"></script>
+		{% for message in app.flashes('notice') %}
+			<div class="alert">
+				<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+				{{ message }}
+			</div>
+		{% endfor %}
+		{% block body %}{% endblock %}
 
-    {% endblock %}
-  </body>
+		{% block javascripts %}
+			<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+		{% endblock %}
+	</body>
 
 </html>

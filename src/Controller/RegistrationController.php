@@ -28,16 +28,21 @@ class RegistrationController extends AbstractController
     #[Route('/register', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
+        if ($this->getUser() != null) {
+            return $this->redirectToRoute('app_profil');
+        }
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
                 
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
+                
                 $user->setAdresseRegion($request->get('region'));
                 $ex = explode("-",$request->get('villecp'));
                 $user->setAdresseVille($ex[0]);
                 $user->setAdresseCP($ex[1]);
+
                 $user->setEmail($form->get('email')->getData());
                 $user->setPassword($userPasswordHasher->hashPassword($user, $form->get('plainPassword')->getData()));
                 

@@ -1,7 +1,34 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Ajout de votre entreprise{% endblock %}
+{% block title %}Ajout de votre entreprise
+{% endblock %}
 
 {% block body %}
-{{form(form)}}
+
+	<div class="container-fluid">
+		<div class="row justify-content-center">
+			<div class="col-10 text-primary">
+				<h1 class="text-center text-primary mt-4 pt-4 display-1 fw-bold">Entreprise</h1>
+
+				{{ form_start(ajoutEntrepriseForm) }}
+
+				Adresse Entreprise:<input name="regionE" list="datalistE" placeholder="Adresse"/>
+				<datalist id="datalistE"></datalist>
+
+                </br>
+                
+				Ville et code Postal Entreprise:<input name="villecpE" list="datalist2E" placeholder="Ville"/>
+				<datalist id="datalist2E"></datalist>
+
+				{{ form_end(ajoutEntrepriseForm) }}
+
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block javascripts %}
+	{{parent()}}
+	<script type="text/javascript" src="js/entreprise1.js"></script>
+	<script type="text/javascript" src="js/entreprise2.js"></script>
 {% endblock %}

@@ -1,16 +1,16 @@
 $(document).ready(function () {
-    var ok = document.getElementById('ville');
+    var ok = document.getElementById('regionE');
 
-    var ok1 = document.getElementById('datalist2');
+    var en1 = document.getElementById('datalistE');
 
-    ok1.addEventListener("change",function(){
+    en1.addEventListener("change",function(){
         console.log("uwu");
     });
 
 
-    function communes() {
+    function regionE() {
         var request = $.ajax({
-            url: "https://geo.api.gouv.fr/communes",
+            url: "https://geo.api.gouv.fr/regions",
             method: "GET",
             dataType: "json",
             beforeSend: function (xhr) {
@@ -31,18 +31,19 @@ $(document).ready(function () {
 
             $.each(msg, function (index, e) {
                 option = document.createElement('option');
-                option.setAttribute("id", e.codesPostaux);
-                option.innerText = e.nom + " - " + e.codesPostaux;
-                ok1.appendChild(option);
+                option.setAttribute("id", e.code);
+                option.innerText = e.nom;
+                en1.appendChild(option);
             });
         });
 
 
-        ok1.addEventListener("change", function () {
-            console.log(option.value = e.codesPostaux);
+        en1.addEventListener("change", function () {
+            console.log(option.value = e.code);
         });
         request.fail(function (jqXHR, textStatus) { alert('erreur'); });
     }
 
-    communes();
+    regionE();
 });
+
