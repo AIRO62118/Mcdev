@@ -53,6 +53,7 @@ class EntrepriseController extends AbstractController
 
         $entrepriseRepo = $this->getDoctrine()->getRepository(Entreprise::class)->find($entreprise->getId());
         
+        
 
         return $this->render('entreprise/entreprise.html.twig', ['entrepriseRepo'=> $entrepriseRepo]);
     }
