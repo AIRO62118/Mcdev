@@ -359,12 +359,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }else{
             $patron = "";
         }
-
-
-        return array($this->id, $this->email, $this->password, $salarie, $this->nom, $this->prenom, $this->adresse_region, $this->adresse_ville, $this->adresse_CP, $this->est_premium, $patron);
+        return array($this->id, $this->email, $salarie, $this->nom, $this->prenom, $this->adresse_region, $this->adresse_ville, $this->adresse_CP, $this->est_premium, $patron);
     }
+    
     public function getHeader(){ 
-        return array("id", "email", "password", "est_salarie", "nom", "prenom", "adresse_region", "adresse_ville", "adresse_CP", "est_premium", "est_patron");
+        return array("id", "email", "est_salarie", "nom", "prenom", "adresse_region", "adresse_ville", "adresse_CP", "est_premium", "est_patron");
     }
 
 }

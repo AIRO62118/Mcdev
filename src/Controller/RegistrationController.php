@@ -41,7 +41,7 @@ class RegistrationController extends AbstractController
                 $user->setEmail($form->get('email')->getData());
                 $user->setPassword($userPasswordHasher->hashPassword($user, $form->get('plainPassword')->getData()));
                 
-                $user->setDateInscription(new \Datetime());
+                $user->setDateInscription(new \Datetime().toString());
 
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($user);

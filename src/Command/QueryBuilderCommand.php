@@ -41,7 +41,8 @@ class QueryBuilderCommand extends Command{
         '===================',
         '',
         ]);   
-        $output->writeln('Numéro de la requête: '.$input->getArgument('numero'));        $this->release();   
+        $output->writeln('Numéro de la requête: '.$input->getArgument('numero'));        
+        $this->release();   
         $result = null;
         switch($input->getArgument('numero')){
             case 1 : $output->writeln("Liste des Users triés par ordre alphabétique sur le nom");
