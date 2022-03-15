@@ -33,15 +33,15 @@ class Entreprise
     private $description_entreprise;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $adresse_ville;
+    private $adresse_ville_e;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $adresse_region;
+    private $adresse_region_e;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $adresse_CP;
+    private $adresse_CPe;
 
-    #[ORM\Column(type: 'boolean')]
+    #[ORM\Column(type: 'boolean',nullable:true)]
     private $est_premium;
 
     #[ORM\Column(type: 'datetime')]
@@ -100,38 +100,38 @@ class Entreprise
         return $this;
     }
 
-    public function getAdresseVille(): ?string
+    public function getAdresseVilleE(): ?string
     {
-        return $this->adresse_ville;
+        return $this->adresse_ville_e;
     }
 
-    public function setAdresseVille(string $adresse_ville): self
+    public function setAdresseVilleE(string $adresse_ville_e): self
     {
-        $this->adresse_ville = $adresse_ville;
+        $this->adresse_ville_e = $adresse_ville_e;
 
         return $this;
     }
 
-    public function getAdresseRegion(): ?string
+    public function getAdresseRegionE(): ?string
     {
-        return $this->adresse_region;
+        return $this->adresse_region_e;
     }
 
-    public function setAdresseRegion(string $adresse_region): self
+    public function setAdresseRegionE(string $adresse_region_e): self
     {
-        $this->adresse_region = $adresse_region;
+        $this->adresse_region_e = $adresse_region_e;
 
         return $this;
     }
 
-    public function getAdresseCP(): ?string
+    public function getAdresseCPE(): ?string
     {
-        return $this->adresse_CP;
+        return $this->adresse_CPe;
     }
 
-    public function setAdresseCP(string $adresse_CP): self
+    public function setAdresseCPE(string $adresse_CPe): self
     {
-        $this->adresse_CP = $adresse_CP;
+        $this->adresse_CPe = $adresse_CPe;
 
         return $this;
     }
