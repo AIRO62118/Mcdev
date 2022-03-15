@@ -4,5 +4,48 @@
 
 {% block title %}{{parent()}}Votre Profil{% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="css/profil.css"> 
+{% endblock %} 
+
 {% block body %}
+<<<<<<< HEAD
+<div class="profil">
+<div class="entete">
+<figure><div class="descPhoto"></div></figure>
+</div>
+</div>
 {% endblock %}
+=======
+l'id :
+{{app.user.id}}
+</br>
+le nom :
+{{app.user.nom}}
+</br>
+le prenom :
+{{app.user.prenom}}
+</br>
+l'email :
+{{app.user.email}}
+</br>
+la région :
+{{app.user.adresseregion}}
+</br>
+la ville :
+{{app.user.adresseville}}
+</br>
+le code postal :
+{{app.user.adressecp}}
+</br>
+date de naissance :
+{{app.user.datedenaissance | date('d-m-Y')}}
+</br>
+date d'inscription :
+{{app.user.dateinscription | date('d-m-Y')}}
+</br>
+ici ya un 1 si ya de la thune :
+{{app.user.estpremium}}
+</br>
+{% endblock %}
+>>>>>>> 890202a544fadeff83aedd8e6e781eb94cfc4084

@@ -28,6 +28,9 @@ class RegistrationController extends AbstractController
     #[Route('/register', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
+        if ($this->getUser() != null) {
+            return $this->redirectToRoute('app_profil');
+        }
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
                 
@@ -43,7 +46,7 @@ class RegistrationController extends AbstractController
                 $user->setEmail($form->get('email')->getData());
                 $user->setPassword($userPasswordHasher->hashPassword($user, $form->get('plainPassword')->getData()));
                 
-                $user->setDateInscription(new \Datetime());
+                $user->setDateInscription(new \Datetime().toString());
 
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($user);
