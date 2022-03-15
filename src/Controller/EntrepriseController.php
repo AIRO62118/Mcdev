@@ -76,15 +76,8 @@ class EntrepriseController extends AbstractController
     {
 
         $entrepriseRepo = $this->getDoctrine()->getRepository(Entreprise::class)->find($entreprise->getId());
-<<<<<<< HEAD
 
 
         return $this->render('entreprise/entreprise.html.twig', ['entrepriseRepo' => $entrepriseRepo]);
-=======
-                //affiche les employer en fonction de l'entreprise
-                $liste = $this->getDoctrine()->getRepository(User::class)->users($entreprise->getId());
-
-        return $this->render('entreprise/entreprise.html.twig', ['entrepriseRepo'=> $entrepriseRepo,"liste"=>$liste]);
->>>>>>> be374fb340aab84bbf3b58d27c20eb69f87f1348
     }
 }
