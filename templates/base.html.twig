@@ -4,12 +4,14 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/base.css"> 
    {% block stylesheets %}
    {% endblock %}
     <title>{% block title %}MCDev - {% endblock %}</title>
   </head>
   <body>
     {% block navbar %}
+    <nav>
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
 				<li>
 					<a href="{{path('app_logout')}}">{{app.user.email}}
@@ -22,6 +24,7 @@
 	      <a href="{{path('liste-contacts')}}">Liste des contacts</a>
       </li>
     {% endif %}
+    </nav>
     {% endblock %}
 
     {% for message in app.flashes('notice') %}

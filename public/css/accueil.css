@@ -9,6 +9,8 @@ body {
     box-sizing: border-box;
 }
 
+
+
 img {
     width: 50vw;
     height: 95vh;
@@ -25,7 +27,7 @@ footer {
 
 a {
     text-decoration: none;
-    color: white;
+    color: gray;
     padding: 0 10px 0 10px;
 }
 
@@ -34,34 +36,32 @@ a:hover {
 }
 
 .accueil_droite {
-    width: 50vw;
-    height: 95vh;
+    grid-column: 2;
+    grid-row: 1;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: space-evenly;
     align-items: center;
     background-color: #ffdc9d;
 }
 
 .titre_accueil {
     border: 2px solid black;
-    margin-top: 15vh;
     padding: 30px 60px 30px 60px;
 }
 
 form {
-    margin-top: 15vh;
     display: flex;
     flex-direction: column;
-    width: 30vw;
-    height: 40vh;
+    align-items: center;
+    justify-content: center;
     box-shadow: 5px 5px 15px rgba(44, 44, 44, 0.9);
     padding: 10px;
     background-color: white;
 }
 
 input {
-    margin: 20px;
+    margin: 10px;
     padding: 10px;
     font-size: large;
 }
@@ -71,5 +71,33 @@ label {
 }
 
 button {
-    margin-top: 15px;
+    margin: 10px;
 }
+
+@media (max-width: 750px) {
+    body {
+        grid-template-columns: 100vw;
+        grid-template-rows: 100vh 100vh 5vh;
+    }
+
+    .accueil_gauche {
+        grid-row: 1;
+    }
+
+    .accueil_droite {
+        grid-column: 1;
+        grid-row: 2;
+    }
+
+    footer {
+        grid-row: 3;
+    }
+
+    img{
+        width: 100vw;
+        height: 100vh;
+    }
+
+
+}
+  
