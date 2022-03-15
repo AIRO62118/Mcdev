@@ -24,6 +24,7 @@ class AuthenticationSuccessListener{
         'id' => $user->getId(), 
         'nom' => $user->getNom(),
         'prenom' => $user->getPrenom(),
+        'email'=> $user->getEmail(),
         'date_de_naissance' => $user->getDateDeNaissance(),
         'adresse_region' => $user->getAdresseRegion(),
         'adresse_Ville' => $user->getAdresseVille(),
