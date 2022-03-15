@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Entreprise;
+use App\Entity\User;
 use App\Form\AjoutEntrepriseType;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\String\Slugger\SluggerInterface;
@@ -75,8 +76,15 @@ class EntrepriseController extends AbstractController
     {
 
         $entrepriseRepo = $this->getDoctrine()->getRepository(Entreprise::class)->find($entreprise->getId());
+<<<<<<< HEAD
 
 
         return $this->render('entreprise/entreprise.html.twig', ['entrepriseRepo' => $entrepriseRepo]);
+=======
+                //affiche les employer en fonction de l'entreprise
+                $liste = $this->getDoctrine()->getRepository(User::class)->users($entreprise->getId());
+
+        return $this->render('entreprise/entreprise.html.twig', ['entrepriseRepo'=> $entrepriseRepo,"liste"=>$liste]);
+>>>>>>> be374fb340aab84bbf3b58d27c20eb69f87f1348
     }
 }

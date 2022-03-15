@@ -4,14 +4,15 @@
 {% endblock %}
 
 {% block body %}
-	Nom de l'entreprise :
-	{{entrepriseRepo.nomentreprise}}
-</br>
-Adresse :
-{{entrepriseRepo.adresseregione}},
-{{entrepriseRepo.adressevillee}},
-{{entrepriseRepo.adressecpe}}
-</br>
-logo :{{entrepriseRepo.logoentreprise}}
-</br>
-banniere :{{entrepriseRepo.banniereentreprise}}{% endblock %}
+    Nom de l'entreprise : {{entrepriseRepo.nomentreprise}}
+    <br>
+    Adresse : {{entrepriseRepo.adresseregione}}, {{entrepriseRepo.adressevillee}}, {{entrepriseRepo.adressecpe}}
+    <br>
+	logo :{{entrepriseRepo.logoentreprise}}
+	</br>
+	banniere :{{entrepriseRepo.banniereentreprise}}
+    Employé :
+{% for u in liste %}
+{{u.nom | capitalize}} {{u.prenom | capitalize}},
+{% endfor %}
+{% endblock %}
