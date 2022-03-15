@@ -23,6 +23,7 @@ class EntrepriseController extends AbstractController
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
                 
+                $entreprise->setEstPremium('0');
                 $entreprise->setAdresseRegionE($request->get('regionE'));
                 $ex = explode("-",$request->get('villecpE'));
                 $entreprise->setAdresseVilleE($ex[0]);
@@ -33,10 +34,10 @@ class EntrepriseController extends AbstractController
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($entreprise);
                 $em->flush();
-                return $this->redirectToRoute('ajout_entreprise');
+                return $this->redirectToRoute('entreprise',array('id'=>$entreprise->getId()));
             }
 
-            return $this->redirectToRoute('ajout_entreprise');
+            return $this->redirectToRoute('entreprise/{id}');
         }
 
 
