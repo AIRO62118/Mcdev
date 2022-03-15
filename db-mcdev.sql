@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le : lun. 14 mars 2022 à 15:43
+-- Généré le : mar. 15 mars 2022 à 09:06
 -- Version du serveur : 10.3.29-MariaDB-0+deb10u1
 -- Version de PHP : 8.0.15
 
@@ -29,25 +29,25 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `competence` (
   `id` int(11) NOT NULL,
-  `libelle` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `parent_id_id` int(11) DEFAULT NULL
+  `parent_id_id` int(11) DEFAULT NULL,
+  `libelle` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `competence`
 --
 
-INSERT INTO `competence` (`id`, `libelle`, `parent_id_id`) VALUES
-(1, 'Merle', NULL),
-(2, 'Laroche', NULL),
-(3, 'Renaud', NULL),
-(4, 'Arnaud', 2),
-(5, 'Dupuis', NULL),
-(6, 'Coste', NULL),
-(7, 'Pruvost', NULL),
-(8, 'Bonnin', NULL),
-(9, 'Thibault', NULL),
-(10, 'Le Goff', NULL);
+INSERT INTO `competence` (`id`, `parent_id_id`, `libelle`) VALUES
+(81, NULL, 'Barthelemy'),
+(82, 81, 'Costa'),
+(83, NULL, 'Merle'),
+(84, NULL, 'Lefebvre'),
+(85, NULL, 'Menard'),
+(86, NULL, 'Costa'),
+(87, NULL, 'Ramos'),
+(88, NULL, 'Marion'),
+(89, NULL, 'Thierry'),
+(90, NULL, 'Vallee');
 
 -- --------------------------------------------------------
 
@@ -81,17 +81,7 @@ CREATE TABLE `doctrine_migration_versions` (
 --
 
 INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
-('DoctrineMigrations\\Version20220307081656', '2022-03-07 09:17:25', 187),
-('DoctrineMigrations\\Version20220307082622', '2022-03-07 09:26:33', 52),
-('DoctrineMigrations\\Version20220307083051', '2022-03-07 09:30:57', 352),
-('DoctrineMigrations\\Version20220307091056', '2022-03-07 10:11:04', 50),
-('DoctrineMigrations\\Version20220308091157', '2022-03-08 10:12:15', 1283),
-('DoctrineMigrations\\Version20220308092923', '2022-03-08 10:29:32', 243),
-('DoctrineMigrations\\Version20220308093718', '2022-03-08 10:37:22', 2506),
-('DoctrineMigrations\\Version20220308094545', '2022-03-08 10:45:49', 1141),
-('DoctrineMigrations\\Version20220308095633', '2022-03-08 10:57:15', 3349),
-('DoctrineMigrations\\Version20220308100538', '2022-03-08 11:05:43', 1026),
-('DoctrineMigrations\\Version20220308115219', '2022-03-08 12:52:45', 1092);
+('DoctrineMigrations\\Version20220315074757', '2022-03-15 08:48:12', 26454);
 
 -- --------------------------------------------------------
 
@@ -104,6 +94,22 @@ CREATE TABLE `domaine` (
   `competence_id` int(11) DEFAULT NULL,
   `libelle` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `domaine`
+--
+
+INSERT INTO `domaine` (`id`, `competence_id`, `libelle`) VALUES
+(1, 86, 'Etienne'),
+(2, 81, 'Thibault'),
+(3, 83, 'Guillou'),
+(4, 83, 'Martineau'),
+(5, 86, 'Julien'),
+(6, 89, 'Barre'),
+(7, 87, 'Boutin'),
+(8, 81, 'Denis'),
+(9, 89, 'Lombard'),
+(10, 81, 'Maillard');
 
 -- --------------------------------------------------------
 
@@ -129,16 +135,16 @@ CREATE TABLE `entreprise` (
 --
 
 INSERT INTO `entreprise` (`id`, `nom_entreprise`, `logo_entreprise`, `banniere_entreprise`, `description_entreprise`, `adresse_ville`, `adresse_region`, `adresse_cp`, `est_premium`, `date_création_page`) VALUES
-(21, 'Gros', NULL, NULL, NULL, 'Lebreton', 'Maillet-sur-Chartier', '67398', 1, '2005-01-27 18:54:13'),
-(22, 'Vasseur', NULL, NULL, NULL, 'Fournier', 'Le Roux-les-Bains', '26080', 1, '2019-12-28 04:05:20'),
-(23, 'Cohen', NULL, NULL, NULL, 'Guyot', 'Leroux', '57378', 0, '1996-11-20 09:51:01'),
-(24, 'Collin', NULL, NULL, NULL, 'Lebreton', 'Marechal', '82083', 0, '2012-11-29 15:04:23'),
-(25, 'Bouvet', NULL, NULL, NULL, 'Vaillantboeuf', 'Charles', '29076', 1, '1991-02-02 22:17:04'),
-(26, 'Verdier', NULL, NULL, NULL, 'Cousin', 'Perrot', '78096', 0, '1994-07-06 23:55:40'),
-(27, 'Gaudin', NULL, NULL, NULL, 'Klein', 'Moreno-les-Bains', '53126', 1, '2011-04-06 17:52:27'),
-(28, 'Roussel', NULL, NULL, NULL, 'Lebrun-la-Forêt', 'Auger', '58713', 0, '1974-01-01 09:37:46'),
-(29, 'Chevalier', NULL, NULL, NULL, 'Fontaine', 'Grondin-les-Bains', '90043', 0, '1987-08-17 05:33:24'),
-(30, 'Lagarde', NULL, NULL, NULL, 'Lopeznec', 'Briandnec', '75098', 0, '2021-12-16 14:28:49');
+(1, 'Renaud', NULL, NULL, NULL, 'Diallo-sur-Maillard', 'Richard-sur-Ribeiro', '54300', 0, '2014-06-23 14:51:29'),
+(2, 'Letellier', NULL, NULL, NULL, 'Pages-sur-Mer', 'Meyer', '81310', 0, '1995-07-21 00:24:38'),
+(3, 'Lemaitre', NULL, NULL, NULL, 'Henry-sur-Mer', 'Devaux', '24451', 0, '1994-10-22 12:04:36'),
+(4, 'Roy', NULL, NULL, NULL, 'Nguyen', 'Rodriguez', '59050', 0, '2000-08-17 12:32:12'),
+(5, 'Raynaud', NULL, NULL, NULL, 'Moulin', 'Blanchard', '68092', 1, '1975-05-25 20:44:49'),
+(6, 'Lemonnier', NULL, NULL, NULL, 'Berger-la-Forêt', 'Perrier', '91062', 0, '2016-02-12 11:17:00'),
+(7, 'Chauvin', NULL, NULL, NULL, 'Godard-sur-Mer', 'Lecoq', '14085', 0, '1978-10-26 20:00:30'),
+(8, 'Legrand', NULL, NULL, NULL, 'Marty-les-Bains', 'Maillet-sur-Martel', '21002', 1, '1972-06-28 15:07:43'),
+(9, 'Jacquet', NULL, NULL, NULL, 'Ledoux-sur-Meyer', 'Camus', '00032', 0, '2019-12-22 14:15:58'),
+(10, 'Buisson', NULL, NULL, NULL, 'Robert', 'Vallet', '89912', 1, '2010-04-29 08:45:52');
 
 -- --------------------------------------------------------
 
@@ -189,37 +195,37 @@ CREATE TABLE `rechercher` (
 
 CREATE TABLE `user` (
   `id` int(11) NOT NULL,
+  `est_salarie_id` int(11) DEFAULT NULL,
+  `est_patron_id` int(11) DEFAULT NULL,
   `email` varchar(180) COLLATE utf8mb4_unicode_ci NOT NULL,
   `roles` longtext COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '(DC2Type:json)',
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `is_verified` tinyint(1) NOT NULL,
-  `est_salarie_id` int(11) DEFAULT NULL,
   `nom` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `prenom` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `date_de_naissance` date NOT NULL,
   `adresse_region` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `adresse_ville` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `adresse_cp` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `est_premium` tinyint(1) NOT NULL,
-  `date_inscription` datetime NOT NULL,
-  `est_patron_id` int(11) DEFAULT NULL
+  `est_premium` tinyint(1) DEFAULT NULL,
+  `date_inscription` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `user`
 --
 
-INSERT INTO `user` (`id`, `email`, `roles`, `password`, `is_verified`, `est_salarie_id`, `nom`, `prenom`, `date_de_naissance`, `adresse_region`, `adresse_ville`, `adresse_cp`, `est_premium`, `date_inscription`, `est_patron_id`) VALUES
-(23, 'guillaume.le roux@yahoo.fr', '[\"ROlE_USER\"]', '$2y$13$pFEl84/v8CpBAzp4AdPiteGUEf.FRfJ0K3k3LRNKEUM0uGHgHhsp6', 0, NULL, 'Le Roux', 'Guillaume', '2007-03-22', 'Couturiernec', 'Vaillantdan', '68075', 1, '2022-02-01 07:03:07', NULL),
-(24, 'thomas.charrier@live.com', '[\"ROlE_USER\"]', '$2y$13$RMGgWeNoATiJlw4a.o.3CeF2NchxBb/Rc.Fd4uxqxYLYpjj4SjWDq', 0, NULL, 'Charrier', 'Thomas', '2018-04-21', 'Morvan-sur-Mer', 'Gomezboeuf', '89418', 1, '2022-01-22 01:30:53', NULL),
-(25, 'guillaume.ledoux@wanadoo.fr', '[\"ROlE_USER\"]', '$2y$13$xwi5TH8B8v7fnrPxnrz1Neqx6v7aKke57uJGYetGg362KfzZM7XI.', 0, NULL, 'Ledoux', 'Guillaume', '2016-05-06', 'Leleunec', 'Roy-sur-Thibault', '42504', 0, '2022-02-08 16:16:15', NULL),
-(26, 'patrick.seguin@club-internet.fr', '[\"ROlE_USER\"]', '$2y$13$gGkcLeGiHNPeNRpKaX2c7O9lfKVLHP8nNHR1Eic3fuvVMiHIPsXL2', 0, NULL, 'Seguin', 'Patrick', '2014-07-29', 'Didiernec', 'De Sousa', '61996', 0, '2022-03-06 19:03:55', NULL),
-(27, 'sébastien.lefebvre@dbmail.com', '[\"ROlE_USER\"]', '$2y$13$5GtGp6dFOG/CQkM9z8TTBO6PzFHGswU1BvZOQNoi4QgtKKXybqrvO', 0, NULL, 'Lefebvre', 'Sébastien', '2007-04-20', 'Couturier', 'PeltierBourg', '83852', 0, '2022-02-04 13:04:15', NULL),
-(28, 'danielle.navarro@free.fr', '[\"ROlE_USER\"]', '$2y$13$9S2MSqq/qg4.8lG8t4p4/Omzl6mtCOqZWmDRtS.vzcO.eACLUs/i.', 0, NULL, 'Navarro', 'Danielle', '1973-07-12', 'Hoarau-sur-Mer', 'Brunet-sur-Bouchet', '18133', 1, '2022-03-05 13:35:59', NULL),
-(29, 'auguste.thierry@orange.fr', '[\"ROlE_USER\"]', '$2y$13$eeRseb6Ig5yXZAmcpOFGU.wapiFT/dGnHnD3qUTFFviclCji7FLh6', 0, NULL, 'Thierry', 'Auguste', '1970-10-20', 'Blondel', 'CamusBourg', '01436', 1, '2022-01-23 10:55:29', NULL),
-(30, 'thibault.legrand@laposte.net', '[\"ROlE_USER\"]', '$2y$13$w.3hek/N8n1Itb4E0qL0Yun847sUt1zX8WvlQ6sAQsu2Eprk0.u/W', 0, NULL, 'Legrand', 'Thibault', '2008-02-29', 'Bourdon-les-Bains', 'Joly-sur-Leveque', '98487', 0, '2022-01-20 18:04:02', NULL),
-(31, 'nathalie.michaud@laposte.net', '[\"ROlE_USER\"]', '$2y$13$tV4JgBS7o7Nvs/QgdNUlPuoflCFmcNDjwE3Uwq9MTd1azmbkPM83i', 0, NULL, 'Michaud', 'Nathalie', '1981-05-14', 'Coulon', 'Leroux', '41051', 0, '2022-02-27 09:47:59', NULL),
-(32, 'antoine.mendes@club-internet.fr', '[\"ROlE_USER\"]', '$2y$13$V47mWOvaYcn.1syLWDW7COxXBJ98.s.q1/cLmvQMrtTxiD0mCshj2', 0, NULL, 'Mendes', 'Antoine', '2001-01-07', 'Pichon', 'Hubert', '12077', 1, '2022-02-24 22:53:35', NULL);
+INSERT INTO `user` (`id`, `est_salarie_id`, `est_patron_id`, `email`, `roles`, `password`, `is_verified`, `nom`, `prenom`, `date_de_naissance`, `adresse_region`, `adresse_ville`, `adresse_cp`, `est_premium`, `date_inscription`) VALUES
+(1, NULL, NULL, 'thomas.lesage@laposte.net', '[\"ROlE_USER\"]', '$2y$13$2Dzr4BoXyAyCi49SeiQRguX3Scje2Y9zIbEBUUCxD1.HtMescTyw6', 0, 'Lesage', 'Thomas', '2006-12-12', 'Morvan', 'Langlois', '35863', 0, '2022-02-15 00:06:55'),
+(2, NULL, NULL, 'claudine.peltier@club-internet.fr', '[\"ROlE_USER\"]', '$2y$13$BEhtxZ/gG9RqYVCUiQBuBOpmVb5VhyjbX0LRgcCYj0n5/SVA6bAzO', 0, 'Peltier', 'Claudine', '2016-02-15', 'Da Costa', 'LeroyBourg', '93581', 1, '2022-02-06 16:30:00'),
+(3, NULL, NULL, 'inès.faivre@noos.fr', '[\"ROlE_USER\"]', '$2y$13$QozzfReTsvE7Ywlbkilqhep8R.ZyvrfxRXG7Rjfr4e.chHMAGgg6i', 0, 'Faivre', 'Inès', '1998-08-25', 'Morenoboeuf', 'Vidal', '93505', 0, '2022-03-12 15:29:51'),
+(4, NULL, NULL, 'matthieu.le roux@laposte.net', '[\"ROlE_USER\"]', '$2y$13$cdD3ukW8vPpGF2KNQDkVsO9ytJ917JlCN/7dcNFtj2Y6Ek8PMFfby', 0, 'Le Roux', 'Matthieu', '1974-12-31', 'Faivre-sur-Evrard', 'Vaillant', '16475', 1, '2022-02-02 23:57:37'),
+(5, NULL, NULL, 'jeannine.rossi@tele2.fr', '[\"ROlE_USER\"]', '$2y$13$7uiCovmn4ZOok7UzR3rU4.kWPO.SzannUzNAffM8WMEOHX5DT3tx6', 0, 'Rossi', 'Jeannine', '2009-03-10', 'MerleVille', 'Allain', '52095', 0, '2022-03-03 20:15:10'),
+(6, NULL, NULL, 'matthieu.lambert@wanadoo.fr', '[\"ROlE_USER\"]', '$2y$13$c3eScQ1gF.8YK6XdTRzOBelYqp9f297eOnpWBnBPJ0cSVBbHyy/fe', 0, 'Lambert', 'Matthieu', '1978-03-18', 'Morin', 'RaymondVille', '19694', 1, '2022-03-14 21:33:14'),
+(7, NULL, NULL, 'patrick.verdier@sfr.fr', '[\"ROlE_USER\"]', '$2y$13$Qp9vcFio/VGQXMAK0Ymu6emmgUIySTojkdb6ua5NM8NcSf7Zj5utO', 0, 'Verdier', 'Patrick', '1984-03-04', 'Hamel-la-Forêt', 'Royer', '16004', 0, '2022-01-19 21:11:09'),
+(8, NULL, NULL, 'chantal.brun@noos.fr', '[\"ROlE_USER\"]', '$2y$13$txuZ30GKDzpssaUrourFZuIk0Yz3nMSUzoVlDaCn8RkZJNqQ31dYe', 0, 'Brun', 'Chantal', '1993-01-10', 'Besnardnec', 'Chauveau', '57050', 0, '2022-02-14 16:46:19'),
+(9, NULL, NULL, 'guy.marchand@laposte.net', '[\"ROlE_USER\"]', '$2y$13$.YauNseozJWGqvSoFAQSvOCzjG46yPoeUj5dUao/ELFlK6IHidBKO', 0, 'Marchand', 'Guy', '1983-12-31', 'Lenoir', 'Joly-les-Bains', '79015', 1, '2022-02-08 08:55:51'),
+(10, NULL, NULL, 'gilles.martineau@orange.fr', '[\"ROlE_USER\"]', '$2y$13$Uom78wWwopsaE6nAsbfay.Mw4N8TCKHZqnxyemz0DJ..D271vX/iC', 0, 'Martineau', 'Gilles', '1984-11-29', 'LopezBourg', 'BarthelemyBourg', '45918', 1, '2022-03-10 10:08:01');
 
 --
 -- Index pour les tables déchargées
@@ -297,7 +303,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT pour la table `competence`
 --
 ALTER TABLE `competence`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
 
 --
 -- AUTO_INCREMENT pour la table `contact`
@@ -309,13 +315,13 @@ ALTER TABLE `contact`
 -- AUTO_INCREMENT pour la table `domaine`
 --
 ALTER TABLE `domaine`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT pour la table `entreprise`
 --
 ALTER TABLE `entreprise`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT pour la table `posseder`
@@ -339,7 +345,7 @@ ALTER TABLE `rechercher`
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Contraintes pour les tables déchargées
