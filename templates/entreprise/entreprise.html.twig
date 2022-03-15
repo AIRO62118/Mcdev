@@ -1,11 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Profil de l'entreprise{% endblock %}
+{% block title %}Profil de l'entreprise
+{% endblock %}
 
 {% block body %}
-    Nom de l'entreprise : {{entrepriseRepo.nomentreprise}}
-    <br>
-    Adresse : {{entrepriseRepo.adresseregione}}, {{entrepriseRepo.adressevillee}}, {{entrepriseRepo.adressecpe}}
-    <br>
-
-{% endblock %}
+	Nom de l'entreprise :
+	{{entrepriseRepo.nomentreprise}}
+</br>
+Adresse :
+{{entrepriseRepo.adresseregione}},
+{{entrepriseRepo.adressevillee}},
+{{entrepriseRepo.adressecpe}}
+</br>
+logo :{{entrepriseRepo.logoentreprise}}
+</br>
+banniere :{{entrepriseRepo.banniereentreprise}}{% endblock %}
