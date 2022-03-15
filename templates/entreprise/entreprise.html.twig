@@ -7,5 +7,8 @@
     <br>
     Adresse : {{entrepriseRepo.adresseregione}}, {{entrepriseRepo.adressevillee}}, {{entrepriseRepo.adressecpe}}
     <br>
-
+    Employé :
+{% for u in liste %}
+{{u.nom | capitalize}} {{u.prenom | capitalize}},
+{% endfor %}
 {% endblock %}
