@@ -25,9 +25,10 @@ class EntrepriseController extends AbstractController
     #[Route('/entreprise/{id}', name: 'entreprise')]
     public function afficheUneEntreprise(Request $request, Entreprise $entreprise): Response
     {
+
+        $entrepriseRepo = $this->getDoctrine()->getRepository(Entreprise::class)->find($entreprise->getId());
         
 
-
-        return $this->render('entreprise/entreprise.html.twig', []);
+        return $this->render('entreprise/entreprise.html.twig', ['entrepriseRepo'=> $entrepriseRepo]);
     }
 }
