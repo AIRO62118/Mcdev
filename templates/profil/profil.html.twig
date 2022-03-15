@@ -5,4 +5,34 @@
 {% block title %}{{parent()}}Votre Profil{% endblock %}
 
 {% block body %}
+l'id :
+{{app.user.id}}
+</br>
+le nom :
+{{app.user.nom}}
+</br>
+le prenom :
+{{app.user.prenom}}
+</br>
+l'email :
+{{app.user.email}}
+</br>
+la région :
+{{app.user.adresseregion}}
+</br>
+la ville :
+{{app.user.adresseville}}
+</br>
+le code postal :
+{{app.user.adressecp}}
+</br>
+date de naissance :
+{{app.user.datedenaissance | date('d-m-Y')}}
+</br>
+date d'inscription :
+{{app.user.dateinscription | date('d-m-Y')}}
+</br>
+ici ya un 1 si ya de la thune :
+{{app.user.estpremium}}
+</br>
 {% endblock %}
