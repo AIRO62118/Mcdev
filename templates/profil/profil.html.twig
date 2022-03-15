@@ -9,34 +9,30 @@
 {% endblock %} 
 
 {% block body %}
-l'id :
-{{app.user.id}}
-</br>
-le nom :
-{{app.user.nom}}
-</br>
-le prenom :
-{{app.user.prenom}}
-</br>
-l'email :
-{{app.user.email}}
-</br>
-la région :
-{{app.user.adresseregion}}
-</br>
-la ville :
-{{app.user.adresseville}}
-</br>
-le code postal :
-{{app.user.adressecp}}
-</br>
-date de naissance :
-{{app.user.datedenaissance | date('d-m-Y')}}
-</br>
-date d'inscription :
-{{app.user.dateinscription | date('d-m-Y')}}
-</br>
-ici ya un 1 si ya de la thune :
-{{app.user.estpremium}}
-</br>
+<div class="profil">
+    <div class="entete n1">
+        <div class="imgbackground"></div>
+            <div class="desc">
+            <div class="descG">
+            </div>
+            <div class="descD">
+                <h2>{{app.user.nom}}</h2>
+                <h3>{{app.user.prenom}}</h3>
+                <h3>{{app.user.adresseville}} - {{app.user.adressecp}}</h3>
+                <h3>{{app.user.datedenaissance | date('d/m/Y')}}</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="entete n2">
+            <div class="desc n2">
+            <div class="descG">
+            <h2>Statistique</h2>
+            </div>
+            <div class="descD">
+               	<canvas id="graph"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
