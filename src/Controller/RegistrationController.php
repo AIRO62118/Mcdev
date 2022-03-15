@@ -37,10 +37,12 @@ class RegistrationController extends AbstractController
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
+                
                 $user->setAdresseRegion($request->get('region'));
                 $ex = explode("-",$request->get('villecp'));
                 $user->setAdresseVille($ex[0]);
                 $user->setAdresseCP($ex[1]);
+
                 $user->setEmail($form->get('email')->getData());
                 $user->setPassword($userPasswordHasher->hashPassword($user, $form->get('plainPassword')->getData()));
                 

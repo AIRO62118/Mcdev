@@ -1,9 +1,9 @@
 $(document).ready(function () {
-    var ok = document.getElementById('ville');
+    var ok = document.getElementById('villeE');
 
-    var ok1 = document.getElementById('datalist2');
+    var en2 = document.getElementById('datalist2E');
 
-    ok1.addEventListener("change",function(){
+    en2.addEventListener("change",function(){
         console.log("uwu");
     });
 
@@ -33,12 +33,12 @@ $(document).ready(function () {
                 option = document.createElement('option');
                 option.setAttribute("id", e.codesPostaux);
                 option.innerText = e.nom + " - " + e.codesPostaux;
-                ok1.appendChild(option);
+                en2.appendChild(option);
             });
         });
 
 
-        ok1.addEventListener("change", function () {
+        en2.addEventListener("change", function () {
             console.log(option.value = e.codesPostaux);
         });
         request.fail(function (jqXHR, textStatus) { alert('erreur'); });
