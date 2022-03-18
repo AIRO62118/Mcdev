@@ -1,5 +1,3 @@
-
-
 {% extends 'base.html.twig' %}
 
 {% block title %}{{parent()}}Votre Profil{% endblock %}
@@ -36,7 +34,7 @@ date de naissance :
 date d'inscription :
 {{app.user.dateinscription | date('d-m-Y')}}
 </br>
-ici ya un 1 si ya de la thune :
+premium :
 {{app.user.estpremium}}
 </br>
 {% endblock %}

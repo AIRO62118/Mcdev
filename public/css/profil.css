@@ -6,19 +6,46 @@
 }
 
 .entete{
-    min-width: 60vw;
-    min-height: 50vh;
     box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.5);
     margin: 3em;
     border-radius: 7.5px;
     display: flex;
     flex-direction: column;
+    color: #333333;
+    width: 60vw;
 }
 
+.n1 {
+    height: 50vh;
+}
 
-.descPhoto { 
+.n2 {
+    height: 30vh;
+}
+
+.imgbackground { 
     border-top-right-radius: 7.5px;
     border-top-left-radius: 7.5px;
     height: 25vh;
     background: linear-gradient(45deg, red, blue);
+}
+
+.desc {
+    display: flex;
+}
+
+.descG{
+    width: 30vw;
+    height: 25vh;
+    border-bottom-left-radius: 7.5px;
+    display: grid;
+    place-items: center;   
+}
+
+.descD{
+    width: 30vw;
+    height: 25vh;
+    border-bottom-right-radius: 7.5px;  
+    display: grid;
+    place-items: center; 
 }
