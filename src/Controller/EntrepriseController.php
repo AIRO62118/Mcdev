@@ -9,7 +9,12 @@ use Symfony\Component\HttpFoundation\Request;
 
 use App\Entity\Entreprise;
 use App\Entity\User;
+use App\Entity\Rechercher;
+
+
 use App\Form\AjoutEntrepriseType;
+use App\Form\DemandeCompetenceType;
+
 
 
 class EntrepriseController extends AbstractController
@@ -34,7 +39,10 @@ class EntrepriseController extends AbstractController
 
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($entreprise);
+                $user = $this->getUser()->setEstPatron($entreprise);
+                $em->persist($user);
                 $em->flush();
+
                 return $this->redirectToRoute('entreprise',array('id'=>$entreprise->getId()));
             }
 
@@ -53,9 +61,25 @@ class EntrepriseController extends AbstractController
     {
 
         $entrepriseRepo = $this->getDoctrine()->getRepository(Entreprise::class)->find($entreprise->getId());
-                //affiche les employer en fonction de l'entreprise
-                $liste = $this->getDoctrine()->getRepository(User::class)->users($entreprise->getId());
+        //affiche les employer en fonction de l'entreprise
+        $liste = $this->getDoctrine()->getRepository(User::class)->users($entreprise->getId());
 
-        return $this->render('entreprise/entreprise.html.twig', ['entrepriseRepo'=> $entrepriseRepo,"liste"=>$liste]);
+        $rechercher = new Rechercher();
+        $form = $this->createForm(DemandeCompetenceType::class, $rechercher);
+
+        if ($request->isMethod('POST')) {
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+
+                $rechercher->setEntreprise($entreprise);
+
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($rechercher);
+                $em->flush();
+            }
+
+
+        return $this->render('entreprise/profil-entreprise.html.twig', ['entrepriseRepo'=> $entrepriseRepo,"liste"=>$liste,"form"=>$form->createView()]);
     }
+}
 }
