@@ -3,9 +3,7 @@
 	<head>
 		<!-- Required meta tags -->
 		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="css/base.css"> 
-		 {% block stylesheets %}{% endblock %}
+		<meta name="viewport" content="width=device-width, initial-scale=1"> {% block stylesheets %}{% endblock %}
 		<title>
 			{% block title %}MCDev -
 			{% endblock %}
@@ -13,20 +11,20 @@
 	</head>
 	<body>
 		{% block navbar %}
-		<nav>
-			{% if is_granted('IS_AUTHENTICATED_FULLY') %}
-				<li>
-					<a href="{{path('app_logout')}}">{{app.user.email}}
-						se déconnecter
-					</a>
-				</li>
-			{% endif %}
-			{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MOD')%}
-				<li class="nav-item">
-					<a href="{{path('liste-contacts')}}">Liste des contacts</a>
-				</li>
-			{% endif %}
-		</nav>
+			<nav style="display: none;" id="nav">
+				{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+					<li>
+						<a href="{{path('app_logout')}}">{{app.user.email}}
+							se déconnecter
+						</a>
+					</li>
+				{% endif %}
+				{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MOD')%}
+					<li class="nav-item">
+						<a href="{{path('liste-contacts')}}">Liste des contacts</a>
+					</li>
+				{% endif %}
+			</nav>
 		{% endblock %}
 
 		{% for message in app.flashes('notice') %}
@@ -37,11 +35,12 @@
 		{% endfor %}
 		{% block body %}{% endblock %}
 
-		{% block javascripts %}
-			<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-			<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js" ></script>
-			<script src="js/profil.js"></script>
-		{% endblock %}
+		<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
+
+		<script src="js/base.js"></script>
+		{% block javascripts %}{% endblock %}
+
 	</body>
 
 </html>

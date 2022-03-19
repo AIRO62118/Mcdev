@@ -74,9 +74,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToOne(targetEntity: Entreprise::class, cascade: ['persist', 'remove'])]
     private $est_patron;
 
+    #[ORM\OneToMany(mappedBy: 'User', targetEntity: StatistiquePerso::class)]
+    private $statistiquePersos;
+
     public function __construct()
     {
         $this->posseders = new ArrayCollection();
+        $this->statistiquePersos = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -364,6 +368,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     
     public function getHeader(){ 
         return array("id", "email", "est_salarie", "nom", "prenom", "adresse_region", "adresse_ville", "adresse_CP", "est_premium", "est_patron");
+    }
+
+    /**
+     * @return Collection<int, StatistiquePerso>
+     */
+    public function getStatistiquePersos(): Collection
+    {
+        return $this->statistiquePersos;
+    }
+
+    public function addStatistiquePerso(StatistiquePerso $statistiquePerso): self
+    {
+        if (!$this->statistiquePersos->contains($statistiquePerso)) {
+            $this->statistiquePersos[] = $statistiquePerso;
+            $statistiquePerso->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStatistiquePerso(StatistiquePerso $statistiquePerso): self
+    {
+        if ($this->statistiquePersos->removeElement($statistiquePerso)) {
+            // set the owning side to null (unless already changed)
+            if ($statistiquePerso->getUser() === $this) {
+                $statistiquePerso->setUser(null);
+            }
+        }
+
+        return $this;
     }
 
 }

@@ -49,3 +49,12 @@
     display: grid;
     place-items: center; 
 }
+
+.inputstat {
+    font-size: x-large;
+    color: #333333;
+}
+
+p {
+    font-size: x-large;
+}

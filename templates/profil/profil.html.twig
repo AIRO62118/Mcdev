@@ -1,38 +1,45 @@
-
-
 {% extends 'base.html.twig' %}
 
-{% block title %}{{parent()}}Votre Profil{% endblock %}
+{% block title %}
+	{{parent()}}Votre Profil
+{% endblock %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="css/profil.css"> 
-{% endblock %} 
+	<link rel="stylesheet" href="css/base.css">
+	<link rel="stylesheet" href="css/profil.css">
+{% endblock %}
 
 {% block body %}
-<div class="profil">
-    <div class="entete n1">
-        <div class="imgbackground"></div>
-            <div class="desc">
-            <div class="descG">
-            </div>
-            <div class="descD">
-                <h2>{{app.user.nom}}</h2>
-                <h3>{{app.user.prenom}}</h3>
-                <h3>{{app.user.adresseville}} - {{app.user.adressecp}}</h3>
-                <h3>{{app.user.datedenaissance | date('d/m/Y')}}</h3>
-            </div>
-        </div>
-    </div>
+	<div class="profil">
+		<div class="entete n1">
+			<div class="imgbackground"></div>
+			<div class="desc">
+				<div class="descG"></div>
+				<div class="descD">
+					<h2>{{app.user.nom}}</h2>
+					<h3>{{app.user.prenom}}</h3>
+					<h3>{{app.user.adresseville}}
+						-
+						{{app.user.adressecp}}</h3>
+					<h3>{{app.user.datedenaissance | date('d/m/Y')}}</h3>
+				</div>
+			</div>
+		</div>
 
-    <div class="entete n2">
-            <div class="desc n2">
-            <div class="descG">
-            <h2>Statistique</h2>
-            </div>
-            <div class="descD">
-               	<canvas id="graph"></canvas>
-            </div>
-        </div>
-    </div>
-</div>
+		<div class="entete n2">
+			<div class="desc n2">
+				<div class="descG">
+					<h2>Statistique</h2>
+				</div>
+				<div class="descD">
+					<p>Vos Statistique :
+						<a href="/statistique" class="inputstat">ici</a>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+{% block javascripts %}
+	<script src="js/profil.js"></script>
 {% endblock %}
