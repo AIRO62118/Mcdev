@@ -19,7 +19,7 @@ Employé :
 {{u.nom | capitalize}} {{u.prenom | capitalize}},
 {% endfor %}
     <br>
-<button id="boutonDemande">Faire une demande de recherche</button>
+<button id="boutonDemande">Passer une annonce</button>
 <div id="modalDemande" class="modal">
   <div class="modal-content">
     <span class="close">&times;</span>
@@ -35,5 +35,6 @@ Employé :
 
 {% endblock %}
 {% block javascripts %}{{parent()}}
-<script type="text/javascript" src={{asset("js/scriptModal.js")}}></script>
+    <script type="text/javascript" src={{asset("js/scriptModal.js")}}></script>
+    <script src="js/profil.js"></script>
 {% endblock %}

@@ -95,7 +95,9 @@ class EntrepriseController extends AbstractController
             }
         }
 
-        return $this->render('entreprise/profil-entreprise.html.twig', ['entreprise'=> $entreprise,"liste"=>$liste,"form"=>$form->createView()]);
+        return $this->render('entreprise/profil-entreprise.html.twig', ['entreprise'=> $entreprise,
+                                                                        "liste"=>$liste,
+                                                                        "form"=>$form->createView()]);
     }
 
 }
