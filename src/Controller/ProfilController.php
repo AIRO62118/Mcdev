@@ -17,7 +17,7 @@ use App\Entity\Domaine;
 class ProfilController extends AbstractController
 {
     #[Route('/profil', name: 'app_profil')]
-    public function profil(Request $request): Response
+    public function profil(): Response
     {
     
         $doctrine = $this->getDoctrine();
@@ -30,14 +30,23 @@ class ProfilController extends AbstractController
         
         
         
-
-
-    
-      
-        
         
         return $this->render('profil/profil.html.twig', [
             'posseder' => $repoPosseder
         ]);
+    }
+
+    #[Route('/profil/{id}', name: 'app_profil', requirements: ["id" => "\d+"])]
+    public function profilSupp(Request $request,int $id): Response
+    {
+    
+        $doctrine = $this->getDoctrine();
+        $em = $this->getDoctrine()->getManager();
+        $posseder = $doctrine->getRepository(Posseder::class)->find($request->get('id'));
+        $em->remove($posseder);
+        $em->flush();
+        return $this->redirectToRoute('profil');
+        
+    
     }
 }
