@@ -19,9 +19,9 @@ class EntrepriseFixtures extends Fixture
         for($i=0;$i<10;$i++){
             $entreprise = new Entreprise();
             $entreprise->setNomEntreprise($this->faker->lastName())
-            ->setAdresseVille($this->faker->city())
-            ->setAdresseRegion($this->faker->city())
-            ->setAdresseCP(str_replace(" ", "0",substr($this->faker->postcode(),0,5)))
+            ->setAdresseVilleE($this->faker->city())
+            ->setAdresseRegionE($this->faker->city())
+            ->setAdresseCPE(str_replace(" ", "0",substr($this->faker->postcode(),0,5)))
             ->setEstPremium($this->faker->boolean())
             ->setDateCréationPage($this->faker->dateTime());
             $this->addReference('entreprise'.$i, $entreprise);

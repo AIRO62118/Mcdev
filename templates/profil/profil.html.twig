@@ -48,11 +48,15 @@
 					<ul id="liste">
 						{% for poss in posseder %}
 
-							<li>{{poss.id}}</li>
-							<li>{{poss.user}}</li>
-							<li>{{poss.competence}}</li>
-							<li>{{poss.niveau}}</li>
-
+							<li>
+								<p>{{poss.competence.libelle}}
+									:
+									{{poss.niveau}}
+									<button class="material-icons" value={{poss.id}}>
+										delete
+									</button>
+								</p>
+							</li>
 						{% endfor %}
 
 					</ul>
