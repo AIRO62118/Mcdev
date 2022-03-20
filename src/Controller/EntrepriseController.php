@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 
+
 class EntrepriseController extends AbstractController
 {
     #[Route('/ajout_entreprise', name: 'ajout_entreprise')]
@@ -94,6 +95,7 @@ class EntrepriseController extends AbstractController
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
                 $rechercher->setEntreprise($entreprise);
+                $rechercher->setDateRecherche(new \DateTime());
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($rechercher);
                 $em->flush();

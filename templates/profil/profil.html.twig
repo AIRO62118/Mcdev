@@ -33,7 +33,7 @@
 				</div>
 				<div class="descD">
 					<p>Vos Statistique :
-						<a href="/statistique" class="inputstat">ici</a>
+						<a href="{{ path('app_statistique') }}" class="inputstat">ici</a>
 					</p>
 				</div>
 			</div>
@@ -52,13 +52,22 @@
 								<p>{{poss.competence.libelle}}
 									:
 									{{poss.niveau}}
-									<a class="material-icons" value={{poss.id}}>
-										delete
+									/ 5
+
+									<a href="{{path('app_profilSupp',{'id':poss.id})}}">
+										Supprimer
 									</a>
+
 								</p>
 							</li>
 						{% endfor %}
-
+						<li>
+							<p>
+								<a href="{{path('app_profilAdd')}}">
+									Ajouter Competence
+								</a>
+							</p>
+						</li>
 					</ul>
 				</div>
 			</div>

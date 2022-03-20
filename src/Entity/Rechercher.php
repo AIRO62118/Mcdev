@@ -27,6 +27,9 @@ class Rechercher
     #[ORM\JoinColumn(nullable: false)]
     private $entreprise;
 
+    #[ORM\Column(type: 'datetime')]
+    private $date_recherche;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -76,6 +79,18 @@ class Rechercher
     public function setEntreprise(?Entreprise $entreprise): self
     {
         $this->entreprise = $entreprise;
+
+        return $this;
+    }
+
+    public function getDateRecherche(): ?\DateTimeInterface
+    {
+        return $this->date_recherche;
+    }
+
+    public function setDateRecherche(\DateTimeInterface $date_recherche): self
+    {
+        $this->date_recherche = $date_recherche;
 
         return $this;
     }

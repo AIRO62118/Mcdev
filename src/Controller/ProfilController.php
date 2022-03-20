@@ -8,6 +8,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 
 
+
+
 use App\Entity\User;
 use App\Entity\Profil;
 use App\Entity\Posseder;
@@ -36,7 +38,7 @@ class ProfilController extends AbstractController
         ]);
     }
 
-    #[Route('/profil/{id}', name: 'app_profil', requirements: ["id" => "\d+"])]
+    #[Route('/profilSupp/{id}', name: 'app_profilSupp', requirements: ["id" => "\d+"])]
     public function profilSupp(Request $request,int $id): Response
     {
     
@@ -45,8 +47,16 @@ class ProfilController extends AbstractController
         $posseder = $doctrine->getRepository(Posseder::class)->find($request->get('id'));
         $em->remove($posseder);
         $em->flush();
-        return $this->redirectToRoute('profil');
-        
-    
+        return $this->redirectToRoute('app_profil');
     }
+
+    #[Route('/profilAdd', name: 'app_profilAdd')]
+    public function profilAdd(): Response
+    {
+       
+
+        return $this->render('profil/ajoutcompetence.html.twig', [
+            
+        ]);
+    } 
 }
