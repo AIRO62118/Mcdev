@@ -31,7 +31,7 @@ class EntrepriseController extends AbstractController
 
                 $entreprise->setEstPremium('0');
                 $entreprise->setAdresseRegionE($request->get('regionE'));
-                //explode() — Coupe une chaîne en segments
+                //explode() — Coupe une chaîne en segments / comme un substring
                 $ex = explode("-", $request->get('villecpE'));
                 $entreprise->setAdresseVilleE($ex[0]);
                 $entreprise->setAdresseCPE($ex[1]);
@@ -59,7 +59,6 @@ class EntrepriseController extends AbstractController
                     $entreprise->setBanniereEntreprise($ent);
                 }
                 */
-
                 
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($entreprise);
@@ -69,11 +68,7 @@ class EntrepriseController extends AbstractController
 
                 return $this->redirectToRoute('entreprise',array('id'=>$entreprise->getId()));
             }
-            return $this->redirectToRoute('entreprise/{id}');
         }
-
-
-
         return $this->render('entreprise/ajout_entreprise.html.twig', ['ajoutEntrepriseForm' => $form->createView()]);
     }
 
@@ -85,7 +80,7 @@ class EntrepriseController extends AbstractController
 
         //$entrepriseRepo = $this->getDoctrine()->getRepository(Entreprise::class)->find($entreprise->getId());
         //affiche les employer en fonction de l'entreprise
-        $liste = $this->getDoctrine()->getRepository(User::class)->users($entreprise->getId());
+        $liste = $this->getDoctrine()->getRepository(User::class)->afficheSalaries($entreprise->getId());
 
         $rechercher = new Rechercher();
         $form = $this->createForm(DemandeCompetenceType::class, $rechercher);
