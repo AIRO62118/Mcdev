@@ -1,5 +1,3 @@
-alert("Start")
-
 var modal = document.getElementById("modalDemande");
 var btn = document.getElementById("boutonDemande");
 var span = document.getElementsByClassName("close")[0];
@@ -20,3 +18,13 @@ window.onclick = function(event) {
     modal.style.display = "none";
   }
 }
+
+/*
+<button id="boutonDemande">Faire une demande de recherche</button>
+<div id="modalDemande" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p>{{form(form)}}</p>
+  </div>
+</div>
+*/

@@ -90,7 +90,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         ;
     }
     */
-    public function Users($entreprise)
+    public function afficheSalaries($entreprise)
     {
         return $this->createQueryBuilder('u')
         ->andWhere('u.est_salarie = :entreprise')

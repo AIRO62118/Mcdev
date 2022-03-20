@@ -28,7 +28,11 @@ class Rechercher
     private $entreprise;
 
     #[ORM\Column(type: 'datetime')]
+<<<<<<< HEAD
     private $date_recherche;
+=======
+    private $date_demande;
+>>>>>>> 3561b833ec764aed8fbe7f5f31c85462fb59501f
 
     public function getId(): ?int
     {
@@ -83,6 +87,7 @@ class Rechercher
         return $this;
     }
 
+<<<<<<< HEAD
     public function getDateRecherche(): ?\DateTimeInterface
     {
         return $this->date_recherche;
@@ -91,6 +96,16 @@ class Rechercher
     public function setDateRecherche(\DateTimeInterface $date_recherche): self
     {
         $this->date_recherche = $date_recherche;
+=======
+    public function getDateDemande(): ?\DateTimeInterface
+    {
+        return $this->date_demande;
+    }
+
+    public function setDateDemande(\DateTimeInterface $date_demande): self
+    {
+        $this->date_demande = $date_demande;
+>>>>>>> 3561b833ec764aed8fbe7f5f31c85462fb59501f
 
         return $this;
     }
