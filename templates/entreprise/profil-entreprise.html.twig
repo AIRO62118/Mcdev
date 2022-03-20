@@ -6,23 +6,30 @@
 {% endblock %}
 
 {% block body %}
-    Nom de l'entreprise : {{entrepriseRepo.nomentreprise}}
+    Nom de l'entreprise : {{entreprise.nomentreprise}}
     <br>
-    Adresse : {{entrepriseRepo.adresseregione}}, {{entrepriseRepo.adressevillee}}, {{entrepriseRepo.adressecpe}}
+    Adresse : {{entreprise.adresseregione}}, {{entreprise.adressevillee}}, {{entreprise.adressecpe}}
     <br>
-    Employé :
+
+{% if app.user.estPatron == entreprise %}
+Employé :
 {% for u in liste %}
 {{u.nom | capitalize}} {{u.prenom | capitalize}},
 {% endfor %}
-<br>
+    <br>
 <button id="boutonDemande">Faire une demande de recherche</button>
 <div id="modalDemande" class="modal">
   <div class="modal-content">
     <span class="close">&times;</span>
     <p>{{form(form)}}</p>
   </div>
-
 </div>
+
+{% endif %}
+
+
+
+
 
 {% endblock %}
 {% block javascripts %}{{parent()}}
