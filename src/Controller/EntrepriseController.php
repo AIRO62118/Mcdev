@@ -12,6 +12,7 @@ use App\Entity\Rechercher;
 
 
 use App\Form\AjoutEntrepriseType;
+use App\Form\DemandeCompetenceType;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
@@ -30,6 +31,7 @@ class EntrepriseController extends AbstractController
 
                 $entreprise->setEstPremium('0');
                 $entreprise->setAdresseRegionE($request->get('regionE'));
+                //explode() — Coupe une chaîne en segments
                 $ex = explode("-", $request->get('villecpE'));
                 $entreprise->setAdresseVilleE($ex[0]);
                 $entreprise->setAdresseCPE($ex[1]);
@@ -76,13 +78,12 @@ class EntrepriseController extends AbstractController
     }
 
 
-
+    //Cette route est réalisable grâce au composer sensio/framework-extra-bundle
     #[Route('/entreprise/{id}', name: 'entreprise')]
     public function afficheUneEntreprise(Request $request, Entreprise $entreprise): Response
     {
-         
 
-        $entrepriseRepo = $this->getDoctrine()->getRepository(Entreprise::class)->find($entreprise->getId());
+        //$entrepriseRepo = $this->getDoctrine()->getRepository(Entreprise::class)->find($entreprise->getId());
         //affiche les employer en fonction de l'entreprise
         $liste = $this->getDoctrine()->getRepository(User::class)->users($entreprise->getId());
 
@@ -92,16 +93,14 @@ class EntrepriseController extends AbstractController
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
-
                 $rechercher->setEntreprise($entreprise);
-
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($rechercher);
                 $em->flush();
             }
+        }
 
-
-        return $this->render('entreprise/profil-entreprise.html.twig', ['entrepriseRepo'=> $entrepriseRepo,"liste"=>$liste,"form"=>$form->createView()]);
+        return $this->render('entreprise/profil-entreprise.html.twig', ['entreprise'=> $entreprise,"liste"=>$liste,"form"=>$form->createView()]);
     }
-}
+
 }
