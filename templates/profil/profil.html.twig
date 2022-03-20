@@ -38,6 +38,27 @@
 				</div>
 			</div>
 		</div>
+
+		<div class="entete n3">
+			<div class="desc n3">
+				<div class="descG">
+					<h2>Vos Competences</h2>
+				</div>
+				<div class="descD">
+					<ul id="liste">
+						{% for poss in posseder %}
+
+							<li>{{poss.id}}</li>
+							<li>{{poss.user}}</li>
+							<li>{{poss.competence}}</li>
+							<li>{{poss.niveau}}</li>
+
+						{% endfor %}
+
+					</ul>
+				</div>
+			</div>
+		</div>
 	</div>
 {% endblock %}
 {% block javascripts %}
