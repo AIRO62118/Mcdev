@@ -21,6 +21,7 @@ class StatistiquePerso
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'statistiquePersos')]
     private $User;
 
+
     public function getId(): ?int
     {
         return $this->id;
@@ -49,4 +50,6 @@ class StatistiquePerso
 
         return $this;
     }
+
+  
 }

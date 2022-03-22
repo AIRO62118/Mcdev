@@ -45,6 +45,44 @@ class RechercherRepository extends ServiceEntityRepository
         }
     }
 
+
+    public function afficheRecherche()
+    {
+        return $this->createQueryBuilder('r')
+        ->select('competence.libelle, SUM(r.salaire)')
+        ->leftJoin('r.competence', 'competence')
+        ->groupBy('r.competence')
+        ->getQuery()
+        ->getResult()
+        ;
+    }
+
+    public function moyenneRecherche()
+    {
+        return $this->createQueryBuilder('r')
+        ->select('competence.libelle, AVG(r.niveau_demande)')
+        ->leftJoin('r.competence', 'competence')
+        ->groupBy('r.competence')
+        ->getQuery()
+        ->getResult()
+        ;
+    }
+/*
+    public function nbRecherche_en_un_mois()
+    {
+        return $this->createQueryBuilder('r')
+        ->select('competence.libelle, COUNT(r.id)')
+        ->leftJoin('r.competence', 'competence')
+        ->groupBy('competence.libelle')
+        ->where('r.date_recherche > DATE_SUB(now(),INTERVAL 30 DAY)')
+        ->andWhere('r.date_recherche < now()')
+        ->getQuery()
+        ->getResult()
+        ;
+    }
+*/
+    
+
     // /**
     //  * @return Rechercher[] Returns an array of Rechercher objects
     //  */
@@ -73,4 +111,6 @@ class RechercherRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    
 }

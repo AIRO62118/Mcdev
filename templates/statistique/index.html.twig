@@ -7,10 +7,40 @@
 {% block stylesheets %}
 	<link rel="stylesheet" href="css/base.css">
 	<link rel="stylesheet" href="css/profil.css">
+	<link rel="stylesheet" href="css/stats.css">
 {% endblock %}
 
-{% block body %}{% endblock %}
+{% block body %}
+	{% for r in rechercher %}
+		<input type="hidden" name="salaire" value="{{r.salaire}}-{{r.competence.libelle}}">
+	{% endfor %}
+	{% for u in test %}
+		<input type="hidden" name="niveau" value="{{u.libelle}}-{{u.1}}">
+	{% endfor %}
+	<div class="file">
+		<div class="wrapper">
+			<h1>Moyenne Salaire des Compétences :</h1>
+			<canvas id="graph1"></canvas>
+		</div>
+		<div class="wrapper">
+			<h1>Niveau moyenne des Compétences :</h1>
+			<canvas id="graph2"></canvas>
+		</div>
+		<div class="wrapper">
+			<h1>Nombre de demande cette semaine :</h1>
+			<h4>A venir</h4>
+		</div>
+		<div class="wrapper">
+			<h1>Nombre de demande ce mois ci :</h1>
+			<h4>A venir</h4>
+		</div>
+
+	</div>
+
+
+{% endblock %}
 
 {% block javascripts %}
+	<script src="js/stats.js"></script>
 	<script src="js/profil.js"></script>
 {% endblock %}

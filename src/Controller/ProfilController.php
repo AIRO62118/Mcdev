@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 
-
+use App\Form\AjoutCompetenceType;
 
 
 use App\Entity\User;
@@ -23,8 +23,6 @@ class ProfilController extends AbstractController
     {
     
         $doctrine = $this->getDoctrine();
-     
-    
         $id = $this->getUser()->getId();
         
         
@@ -51,12 +49,25 @@ class ProfilController extends AbstractController
     }
 
     #[Route('/profilAdd', name: 'app_profilAdd')]
-    public function profilAdd(): Response
+    public function profilAdd(Request $request): Response
     {
+        $competence = new Competence();
+        $form = $this->createForm(AjoutCompetenceType::class, $competence);
+
+        if($request->isMethod('POST')){
+            $form->handleRequest($request);
+            if ($form->isSubmitted()&&$form->isValid()){
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($competence);
+                $em->flush();
+                return $this->redirectToRoute('app_profil');
+            }
+        }
        
 
         return $this->render('profil/ajoutcompetence.html.twig', [
-            
+            'form'=>$form->createView()
         ]);
     } 
 }
+
