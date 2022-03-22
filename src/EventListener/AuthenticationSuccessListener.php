@@ -19,6 +19,18 @@ class AuthenticationSuccessListener{
         return;
     }
 
+    $c = array ();
+    $n = array ();
+    $p = $user->getPosseders();
+
+    foreach ($p as $comp){
+      $c[] = $comp->getCompetence()->getLibelle();
+    }
+
+    foreach ($p as $niv){
+      $n[] = $niv->getNiveau();
+    }
+
     $data['data'] = array(
         'roles' => $user->getRoles(),
         'id' => $user->getId(), 
@@ -27,9 +39,10 @@ class AuthenticationSuccessListener{
         'email'=> $user->getEmail(),
         'date_de_naissance' => $user->getDateDeNaissance(),
         'adresse_region' => $user->getAdresseRegion(),
-        'adresse_Ville' => $user->getAdresseVille(),
+        'adresse_ville' => $user->getAdresseVille(),
         'adresse_CP' => $user->getAdresseCP(),
-
+        'competences' => $c,
+        'niveau_competence' => $n,
     );
 
     $event->setData($data);

@@ -24,6 +24,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $id;
 
     #[ORM\Column(type: 'string', length: 180, unique: true)]
+    #[Groups(["read"])]
     private $email;
 
     #[ORM\Column(type: 'json')]
@@ -39,39 +40,48 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $profil;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(["read"])]
     private $nom;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(["read"])]
     private $prenom;
 
     #[ORM\Column(type: 'date')]
+    #[Groups(["read"])]
     private $date_de_naissance;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(["read"])]
     private $adresse_region;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(["read"])]
     private $adresse_ville;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(["read"])]
     private $adresse_CP;
 
     #[ORM\Column(type: 'boolean',nullable:true)]
     private $est_premium;
 
     #[ORM\Column(type: 'datetime')]
+    #[Groups(["read"])]
     private $date_inscription;
 
 
     
 
     #[ORM\ManyToOne(targetEntity: Entreprise::class, inversedBy: 'users_salarie')]
+    #[Groups(["read"])]
     private $est_salarie;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Posseder::class)]
     private $posseders;
 
     #[ORM\OneToOne(targetEntity: Entreprise::class, cascade: ['persist', 'remove'])]
+    #[Groups(["read"])]
     private $est_patron;
 
     #[ORM\OneToMany(mappedBy: 'User', targetEntity: StatistiquePerso::class)]
