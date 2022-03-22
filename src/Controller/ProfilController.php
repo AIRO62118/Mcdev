@@ -8,6 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 
 use App\Form\AjoutCompetenceType;
+use App\Form\AjoutDomaineType;
 
 
 use App\Entity\User;
@@ -66,6 +67,28 @@ class ProfilController extends AbstractController
        
 
         return $this->render('profil/ajoutcompetence.html.twig', [
+            'form'=>$form->createView()
+        ]);
+    } 
+
+    #[Route('/profilAddDomaine', name: 'app_profilAddDomaine')]
+    public function profilAddDomaine(Request $request): Response
+    {
+        $domaine = new Domaine();
+        $form = $this->createForm(AjoutDomaineType::class, $domaine);
+
+        if($request->isMethod('POST')){
+            $form->handleRequest($request);
+            if ($form->isSubmitted()&&$form->isValid()){
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($domaine);
+                $em->flush();
+                return $this->redirectToRoute('app_profil');
+            }
+        }
+       
+
+        return $this->render('profil/ajoutDomaine.html.twig', [
             'form'=>$form->createView()
         ]);
     } 
