@@ -9,7 +9,8 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Entreprise;
 use App\Entity\User;
 use App\Entity\Rechercher;
-
+use App\Entity\Interesser;
+use Symfony\Component\Finder\Finder;
 
 use App\Form\AjoutEntrepriseType;
 use App\Form\DemandeCompetenceType;
@@ -24,6 +25,7 @@ class EntrepriseController extends AbstractController
     {
         $entreprise = new Entreprise();
         $form = $this->createForm(AjoutEntrepriseType::class, $entreprise);
+        $em = $this->getDoctrine()->getManager();
 
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
@@ -35,32 +37,32 @@ class EntrepriseController extends AbstractController
                 $ex = explode("-", $request->get('villecpE'));
                 $entreprise->setAdresseVilleE($ex[0]);
                 $entreprise->setAdresseCPE($ex[1]);
-
                 $entreprise->setDateCréationPage(new \Datetime());
 
-                /*
-                //envoie de phohtos dans la bd
-                //https://nouvelle-techno.fr/articles/live-coding-upload-dimages-multiples-avec-symfony-4-et-5
+                $banniere = $form->get('banniere_entreprise')->getData();
+                $nomBanniere = md5(uniqid());
 
-                // On récupère les images transmises
-                $entreprise = $form->get('images')->getData();
-
-                // On boucle sur les images
-                foreach ($entreprise as $entreprise) {
-                    // On copie le fichier dans le dossier uploads
-                    $entreprise->move(
-                        $this->getParameter('images_directory'),
-                        $entreprise
-                    );
-
-                    // On crée l'image dans la base de données
-                    $ent = new Entreprise();
-                    $entreprise->setLogoEntreprise($ent);
-                    $entreprise->setBanniereEntreprise($ent);
+                try{
+                    $banniere->move($this->getParameter('file_directory'), $nomBanniere);
+                    $entreprise->setBanniereEntreprise($nomBanniere);
                 }
-                */
-                
-                $em = $this->getDoctrine()->getManager();
+                catch(\FileException $e){
+                    $this->addFlash('notice','Problème d\'envoi de la bannière');
+
+                }
+
+                $logo = $form->get('logo_entreprise')->getData();
+                $nomLogo = md5(uniqid());
+
+                try{
+                    $logo->move($this->getParameter('file_directory'), $nomLogo);
+                    $entreprise->setLogoEntreprise($nomLogo);
+                }
+                catch(\FileException $e){
+                    $this->addFlash('notice','Problème d\'envoi du logo');
+
+                }
+
                 $em->persist($entreprise);
                 $user = $this->getUser()->setEstPatron($entreprise);
                 $em->persist($user);
@@ -69,18 +71,32 @@ class EntrepriseController extends AbstractController
                 return $this->redirectToRoute('entreprise',array('id'=>$entreprise->getId()));
             }
         }
-        return $this->render('entreprise/ajout_entreprise.html.twig', ['ajoutEntrepriseForm' => $form->createView()]);
+        return $this->renderForm('entreprise/ajout_entreprise.html.twig', ['ajoutEntrepriseForm' => $form]);
     }
-
 
     //Cette route est réalisable grâce au composer sensio/framework-extra-bundle
     #[Route('/entreprise/{id}', name: 'entreprise')]
     public function afficheUneEntreprise(Request $request, Entreprise $entreprise): Response
     {
+        //Encoder en 64 les bannières et logo
+        $finder = new Finder();
 
+        $banniere = $finder->files()->in($this->getParameter('file_directory'))->name($entreprise->getBanniereEntreprise());
+        foreach ($finder as $file) {
+            $banniere = 'data:image/png;base64, '.base64_encode($file->getContents());
+            break;
+        }
+
+        $logo = $finder->files()->in($this->getParameter('file_directory'))->name($entreprise->getLogoEntreprise());
+        foreach ($finder as $file) {
+            $logo = 'data:image/png;base64, '.base64_encode($file->getContents());
+            break;
+        }
+        
         //$entrepriseRepo = $this->getDoctrine()->getRepository(Entreprise::class)->find($entreprise->getId());
         //affiche les employer en fonction de l'entreprise
         $liste = $this->getDoctrine()->getRepository(User::class)->afficheSalaries($entreprise->getId());
+        $listeFavori = $this->getDoctrine()->getRepository(Interesser::class)->afficheFavori($entreprise->getId());
 
         $rechercher = new Rechercher();
         $form = $this->createForm(DemandeCompetenceType::class, $rechercher);
@@ -95,9 +111,14 @@ class EntrepriseController extends AbstractController
             }
         }
 
-        return $this->render('entreprise/profil-entreprise.html.twig', ['entreprise'=> $entreprise,
-                                                                        "liste"=>$liste,
-                                                                        "form"=>$form->createView()]);
+        return $this->render('entreprise/profil-entreprise.html.twig', [
+            'entreprise'=> $entreprise,
+            "liste"=>$liste,
+            "listeFavori"=>$listeFavori,
+            "form"=>$form->createView(),
+            'banniere' => $banniere,
+            'logo' => $logo,
+        ]);
     }
 
 }

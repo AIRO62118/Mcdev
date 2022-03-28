@@ -2,25 +2,20 @@
 
 namespace App\Form;
 
-use App\Entity\Entreprise;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
-class AjoutEntrepriseType extends AbstractType
+
+
+class AjoutPhotoType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nom_entreprise', TextType::class)
-            ->add('description_entreprise', TextareaType::class)
             ->add('banniere_entreprise', FileType::class, array(
-                'mapped' => false,
                 'label' => 'Fichier à télécharger',
                 'constraints' => [
                     new File([
@@ -34,7 +29,6 @@ class AjoutEntrepriseType extends AbstractType
                 ],
             ))
             ->add('logo_entreprise', FileType::class, array(
-                'mapped' => false,
                 'label' => 'Fichier à télécharger',
                 'constraints' => [
                     new File([
@@ -47,13 +41,13 @@ class AjoutEntrepriseType extends AbstractType
                     ])
                 ],
             ))
-            ->add('submit', SubmitType::class);
+            ->add('envoyer', SubmitType::class)
+
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults([
-            'data_class' => Entreprise::class,
-        ]);
+        $resolver->setDefaults([]);
     }
 }

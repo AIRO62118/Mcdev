@@ -11,11 +11,12 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 
-#[ApiResource(normalizationContext:['groups' => ['read']], itemOperations: ["get", "patch"=>["security"=>"is_granted('ROLE_ADMIN') or object == user"]])]
+#[ApiResource(normalizationContext:['groups' => ['read'], 'enable_max_depth'=>'true'], itemOperations: ["get", "patch"=>["security"=>"is_granted('ROLE_ADMIN') or object == user"]])]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -70,14 +71,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Groups(["read"])]
     private $date_inscription;
 
-
-    
-
     #[ORM\ManyToOne(targetEntity: Entreprise::class, inversedBy: 'users_salarie')]
     #[Groups(["read"])]
     private $est_salarie;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Posseder::class)]
+    /**
+    * @MaxDepth(1)
+    **/
     private $posseders;
 
     #[ORM\OneToOne(targetEntity: Entreprise::class, cascade: ['persist', 'remove'])]
@@ -85,12 +86,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $est_patron;
 
     #[ORM\OneToMany(mappedBy: 'User', targetEntity: StatistiquePerso::class)]
+    /**
+    * @MaxDepth(1)
+    **/
     private $statistiquePersos;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Interesser::class)]
+    /**
+    * @MaxDepth(1)
+    **/
+    private $interessers;
 
     public function __construct()
     {
         $this->posseders = new ArrayCollection();
         $this->statistiquePersos = new ArrayCollection();
+        $this->interessers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -404,6 +415,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($statistiquePerso->getUser() === $this) {
                 $statistiquePerso->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Interesser>
+     */
+    public function getInteressers(): Collection
+    {
+        return $this->interessers;
+    }
+
+    public function addInteresser(Interesser $interesser): self
+    {
+        if (!$this->interessers->contains($interesser)) {
+            $this->interessers[] = $interesser;
+            $interesser->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInteresser(Interesser $interesser): self
+    {
+        if ($this->interessers->removeElement($interesser)) {
+            // set the owning side to null (unless already changed)
+            if ($interesser->getUser() === $this) {
+                $interesser->setUser(null);
             }
         }
 

@@ -9,42 +9,52 @@ use Doctrine\ORM\Mapping as ORM;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
+
 
 #[ORM\Entity(repositoryClass: EntrepriseRepository::class)]
 
-#[ApiResource(normalizationContext:['groups' => ['read']], itemOperations: ["get", "patch"=>["security"=>"is_granted('ROLE_ADMIN') or object == entreprise"]])]
+#[ApiResource(normalizationContext:['groups' => ['read'], 'enable_max_depth'=>'true'], itemOperations: ["get", "patch"=>["security"=>"is_granted('ROLE_ADMIN') or object == entreprise"]])]
 class Entreprise
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+    #[Groups(["read"])]
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(["read"])]
     private $nom_entreprise;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Groups(["read"])]
     private $logo_entreprise;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $banniere_entreprise;
 
     #[ORM\Column(type: 'text', nullable: true)]
+    #[Groups(["read"])]
     private $description_entreprise;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(["read"])]
     private $adresse_ville_e;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(["read"])]
     private $adresse_region_e;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(["read"])]
     private $adresse_CPe;
 
     #[ORM\Column(type: 'boolean',nullable:true)]
     private $est_premium;
 
     #[ORM\Column(type: 'datetime')]
+    #[Groups(["read"])]
     private $date_création_page;
 
     #[ORM\OneToMany(mappedBy: 'est_salarie', targetEntity: User::class)]
@@ -53,10 +63,18 @@ class Entreprise
     #[ORM\OneToMany(mappedBy: 'entreprise', targetEntity: Rechercher::class)]
     private $recherchers;
 
+    #[ORM\OneToMany(mappedBy: 'entreprise', targetEntity: Interesser::class)]
+    #[Groups(["read"])]
+    /**
+    * @MaxDepth(1)
+    **/
+    private $interessers;
+
     public function __construct()
     {
         $this->users_salarie = new ArrayCollection();
         $this->recherchers = new ArrayCollection();
+        $this->interessers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -229,6 +247,36 @@ class Entreprise
     public function setNomEntreprise(string $nom_entreprise): self
     {
         $this->nom_entreprise = $nom_entreprise;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Interesser>
+     */
+    public function getInteressers(): Collection
+    {
+        return $this->interessers;
+    }
+
+    public function addInteresser(Interesser $interesser): self
+    {
+        if (!$this->interessers->contains($interesser)) {
+            $this->interessers[] = $interesser;
+            $interesser->setEntreprise($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInteresser(Interesser $interesser): self
+    {
+        if ($this->interessers->removeElement($interesser)) {
+            // set the owning side to null (unless already changed)
+            if ($interesser->getEntreprise() === $this) {
+                $interesser->setEntreprise(null);
+            }
+        }
 
         return $this;
     }
