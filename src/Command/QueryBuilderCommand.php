@@ -7,6 +7,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Command\LockableTrait;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\User;
+use App\Entity\Rechercher;
 use Symfony\Component\Console\Helper\Table;
 
 class QueryBuilderCommand extends Command{    

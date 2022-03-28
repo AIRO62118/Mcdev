@@ -3,7 +3,6 @@ $(document).ready(function () {
     ok.style.display = "flex";
 
 
-    var liste = document.getElementById('liste');
 
 
 
